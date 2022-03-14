@@ -3,7 +3,7 @@ package org.miu.asd.framework.domain;
 import java.util.Collection;
 import java.util.HashSet;
 
-public abstract class Party {
+public class Customer {
     private String name;
     private String street;
     private String city;
@@ -12,7 +12,7 @@ public abstract class Party {
 
     private Collection<Account> accounts = new HashSet<>();
 
-    public Party(String name, String street, String city, String state, String zipCode) {
+    public Customer(String name, String street, String city, String state, String zipCode) {
         this.name = name;
         this.street = street;
         this.city = city;

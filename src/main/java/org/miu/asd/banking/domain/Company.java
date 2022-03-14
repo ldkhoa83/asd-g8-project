@@ -1,8 +1,8 @@
 package org.miu.asd.banking.domain;
 
-import org.miu.asd.framework.domain.Party;
+import org.miu.asd.framework.domain.Customer;
 
-public class Company extends Party {
+public class Company extends Customer {
     private Integer numOfEmployees;
 
     public Company(String name, String street, String city, String state, String zipCode, Integer numOfEmployees) {
