@@ -6,6 +6,6 @@ public class PersonalCheckingInterest implements InterestComputationStrategy {
 
     @Override
     public Double computeInterest(Double balance) {
-        return balance * 0.03;
+        return balance<1000 ? balance * 0.015: balance * 0.025;
     }
 }
