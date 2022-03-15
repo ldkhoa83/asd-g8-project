@@ -11,16 +11,16 @@ import java.util.Map;
 public class BankMainFrame extends FrameTemplate{
 
     private final ActionListener personalAccount = (actionEvent) -> {
-        openDialog(new AddPersonalAccDialog(this,new AddPersonalAccountUICommand(getAccountService())));
+        openDialog(new AddPersonalAccDialog(this,getAccountService()));
     };
     private final ActionListener companyAccount = (actionEvent) -> {
-        openDialog(new AddCompanyAccountDialog(this,new AddCompAccountUICommand(getAccountService())));
+        openDialog(new AddCompanyAccountDialog(this,getAccountService()));
     };
     private final ActionListener deposit = (actionEvent) -> {
         int selection = getSelectionIndex();
         if (selection >= 0) {
             String accnr = (String) getModel().getValueAt(selection, frameConfig.getAccountNumberColumnIndex());
-            openDialog(new DepositDialog(this, accnr,new DepositUICommand(getAccountService())),430, 15, 275, 140);
+            openDialog(new DepositDialog(this, accnr, getAccountService()),430, 15, 275, 140);
         }
     };
     private final ActionListener addInterest = (actionEvent) -> {
@@ -31,7 +31,7 @@ public class BankMainFrame extends FrameTemplate{
         int selection = getSelectionIndex();
         if (selection >= 0){
             String accnr = (String) getModel().getValueAt(selection, frameConfig.getAccountNumberColumnIndex());
-            openDialog(new WithdrawDialog(this, accnr, new WithdrawUICommand(getAccountService())),430, 15, 275, 140);
+            openDialog(new WithdrawDialog(this, accnr, getAccountService()),430, 15, 275, 140);
         }
     };
 

@@ -22,7 +22,6 @@ public abstract class FrameTemplate extends JFrame {
 
     private AccountService accountService;
 
-
     public FrameTemplate(AccountService accountService,FrameConfig frameConfig){
         this.accountService = accountService;
         this.frameConfig = frameConfig;

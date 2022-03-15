@@ -1,6 +1,7 @@
 package org.miu.asd.banking.ui;
 
 import org.miu.asd.banking.domain.Company;
+import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.FrameTemplate;
 import org.miu.asd.framework.ui.UIBean;
 import org.miu.asd.framework.ui.UICommand;
@@ -15,11 +16,11 @@ public class AddCompanyAccountDialog extends JDialog
     private FrameTemplate parentframe;
 	private UICommand addCompAccountUICommand;
 
-	public AddCompanyAccountDialog(FrameTemplate parent,UICommand uiCommand)
+	public AddCompanyAccountDialog(FrameTemplate parent, AccountService accountService)
 	{
 		super(parent);
 		parentframe=parent;
-		addCompAccountUICommand = uiCommand;
+		addCompAccountUICommand = new AddCompAccountUICommand(accountService);
 		
 		setTitle("Add company account");
 		setModal(true);

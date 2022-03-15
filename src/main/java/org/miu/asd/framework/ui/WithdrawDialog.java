@@ -1,5 +1,7 @@
 package org.miu.asd.framework.ui;
 
+import org.miu.asd.framework.service.AccountService;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,12 +14,12 @@ public class WithdrawDialog extends JDialog
     private String accnr;
 	private UICommand withdrawUICommand;
 
-	public WithdrawDialog(FrameTemplate parent, String aaccnr, UICommand uiCommand)
+	public WithdrawDialog(FrameTemplate parent, String aaccnr, AccountService accountService)
 	{
 		super(parent);
 		parentframe=parent;
 		accnr=aaccnr;
-		withdrawUICommand = uiCommand;
+		withdrawUICommand = new WithdrawUICommand(accountService);
 		
 		setTitle("Withdraw");
 		setModal(true);
