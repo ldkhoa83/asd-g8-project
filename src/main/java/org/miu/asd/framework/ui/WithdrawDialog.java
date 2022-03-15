@@ -5,19 +5,19 @@ import java.awt.*;
 
 
 
-public class JDialog_Withdraw extends JDialog
+public class WithdrawDialog extends JDialog
 {
    
     private FrameTemplate parentframe;
     private String accnr;
-	private WithdrawUICommand withdrawUICommand;
+	private UICommand withdrawUICommand;
 
-	public JDialog_Withdraw(FrameTemplate parent, String aaccnr)
+	public WithdrawDialog(FrameTemplate parent, String aaccnr, UICommand uiCommand)
 	{
 		super(parent);
 		parentframe=parent;
 		accnr=aaccnr;
-		withdrawUICommand = new WithdrawUICommand(parent.getAccountService());
+		withdrawUICommand = uiCommand;
 		
 		setTitle("Withdraw");
 		setModal(true);

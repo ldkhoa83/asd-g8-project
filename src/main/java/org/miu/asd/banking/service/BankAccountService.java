@@ -6,6 +6,8 @@ import org.miu.asd.framework.domain.AccountEntry;
 import org.miu.asd.framework.domain.AccountEvent;
 import org.miu.asd.framework.service.BasicAccountService;
 
+import java.util.Collection;
+
 public class BankAccountService extends BasicAccountService {
 
     public BankAccountService(AccountDAO accountDao) {
@@ -19,6 +21,11 @@ public class BankAccountService extends BasicAccountService {
 
     @Override
     protected AccountEntry performDeposit(Account account, Double amountOfMoney, AccountEvent accountEvent) {
+        return null;
+    }
+
+    @Override
+    public Collection<Account> getAllAccounts() {
         return null;
     }
 }

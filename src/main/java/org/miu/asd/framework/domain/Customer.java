@@ -23,4 +23,28 @@ public class Customer {
     public void addAccount(Account account){
         accounts.add(account);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public Collection<Account> getAccounts() {
+        return accounts;
+    }
 }

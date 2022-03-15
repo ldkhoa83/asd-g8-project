@@ -3,18 +3,18 @@ package org.miu.asd.framework.ui;
 import javax.swing.*;
 import java.awt.*;
 
-public class JDialog_Deposit extends JDialog
+public class DepositDialog extends JDialog
 {
     private FrameTemplate parentframe;
     private String accnr;
-	private DepositUICommand depositUICommand;
+	private UICommand depositUICommand;
     
-	public JDialog_Deposit(FrameTemplate parent, String aaccnr)
+	public DepositDialog(FrameTemplate parent, String aaccnr, UICommand uiCommand)
 	{
 		super(parent);
 		parentframe=parent;
 		accnr=aaccnr;
-		depositUICommand = new DepositUICommand(parent.getAccountService());
+		depositUICommand = uiCommand;
 
 		setTitle("Deposit");
 		setModal(true);

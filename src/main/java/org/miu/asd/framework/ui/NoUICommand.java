@@ -2,20 +2,19 @@ package org.miu.asd.framework.ui;
 
 import org.miu.asd.framework.service.AccountService;
 
-import java.awt.event.ActionEvent;
+public class NoUICommand extends UICommand {
 
-public class NoButtonCommand extends UICommand {
-
-    public NoButtonCommand(){
+    public NoUICommand(){
         super(null);
     }
 
-    public NoButtonCommand(AccountService accountService) {
+    public NoUICommand(AccountService accountService) {
         super(accountService);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void execute(UIBean bean) {
 
     }
+
 }
