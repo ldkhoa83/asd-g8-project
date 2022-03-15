@@ -29,7 +29,7 @@ public class CreditCardMainFrame extends FrameTemplate {
         int selection = getSelectionIndex();
         if (selection >= 0) {
             String creditCardNumber = (String) getModel().getValueAt(selection, frameConfig.getAccountNumberColumnIndex());
-            openDialog(new DepositDialog(this, creditCardNumber, getAccountService()),430, 15, 275, 140);
+            openDialog(new DepositDialog(this, creditCardNumber, getAccountService()),430, 15, 275, 200);
         }
     };
 

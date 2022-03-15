@@ -3,6 +3,8 @@ package org.miu.asd.creditcard.ui;
 		A basic implementation of the JDialog class.
 */
 
+import org.miu.asd.creditcard.domain.CreditCardAccount;
+import org.miu.asd.framework.domain.Customer;
 import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.UIBean;
 import org.miu.asd.framework.ui.UICommand;
@@ -23,7 +25,7 @@ public class JDialog_AddCCAccount extends JDialog
 		setTitle("Add credit card account");
 		setModal(true);
 		getContentPane().setLayout(null);
-		setSize(301,373);
+		setSize(301,500);
 		setVisible(false);
 		JRadioButton_Gold.setText("Gold");
 		JRadioButton_Gold.setActionCommand("Checkings");
@@ -98,10 +100,37 @@ public class JDialog_AddCCAccount extends JDialog
 		SymMouse aSymMouse = new SymMouse();
 		JRadioButton_Gold.addMouseListener(aSymMouse);
 		JRadioButton_Silver.addMouseListener(aSymMouse);
-		SymAction lSymAction = new SymAction();
-		JButton_OK.addActionListener(lSymAction);
-		JButton_Cancel.addActionListener(lSymAction);
 		JRadioButton_Bronze.addMouseListener(aSymMouse);
+
+		JButton_OK.addActionListener(e -> {
+
+			String ccNum = JTextField_CCNR.getText();
+			String name =JTextField_NAME.getText();
+			String street=JTextField_STR.getText();
+			String city=JTextField_CT.getText();
+			String zip=JTextField_ZIP.getText();
+			String state=JTextField_ST.getText();
+			String expDate = JTextField_ExpDate.getText();
+
+			String accountType = "";
+			if (JRadioButton_Gold.isSelected())
+				accountType="Gold";
+			else if (JRadioButton_Silver.isSelected())
+				accountType="Silver";
+			else
+				accountType="Bronze";
+
+			CreditCardUIBean bean = new CreditCardUIBean();
+			bean.setAccountNumber(ccNum);
+			bean.setAccountType(accountType);
+			Customer customer = new Customer(name,street,city,zip,state);
+			bean.setCustomer(customer);
+			bean.setExpDate(expDate);
+			addCCAccountUICommand.execute(bean);
+			parentframe.updateContent();
+			dispose();
+		});
+		JButton_Cancel.addActionListener(e -> dispose());
 		//}}
 	}
 
@@ -167,47 +196,5 @@ public class JDialog_AddCCAccount extends JDialog
 		JRadioButton_Silver.setSelected(false);
 		JRadioButton_Bronze.setSelected(true);
 			 
-	}
-
-	class SymAction implements java.awt.event.ActionListener
-	{
-		public void actionPerformed(java.awt.event.ActionEvent event)
-		{
-			Object object = event.getSource();
-			if (object == JButton_OK)
-				JButtonOK_actionPerformed(event);
-			else if (object == JButton_Cancel)
-				JButtonCalcel_actionPerformed(event);
-		}
-	}
-
-	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
-	{
-		UIBean bean = new UIBean();
-
-		String ccNum = JTextField_CCNR.getText();
-		String name =JTextField_NAME.getText();
-		String street=JTextField_STR.getText();
-		String city=JTextField_CT.getText();
-		String zip=JTextField_ZIP.getText();
-		String state=JTextField_ST.getText();
-		String expDate = JTextField_ExpDate.getText();
-
-		String accountType = "";
-       if (JRadioButton_Gold.isSelected())
-           accountType="Gold";
-	   else if (JRadioButton_Silver.isSelected())
-		   accountType="Silver";
-	   else
-		   accountType="Bronze";
-
-	   parentframe.updateContent();
-       dispose();
-	}
-
-	void JButtonCalcel_actionPerformed(java.awt.event.ActionEvent event)
-	{
-    //make this frame invisible if Cancel button is clicked
-        dispose();
 	}
 }
