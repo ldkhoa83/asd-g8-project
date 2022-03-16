@@ -51,11 +51,12 @@ public abstract class BasicAccountService extends Observable implements AccountS
     }
 
     @Override
-    public void addInterest(String accountID) {
-        Account account = accountDAO.loadAccount(accountID);
-        AccountEntry accountEntry = performDepositOnAccount(account,account.balance()*0.1,new BasicAccountEvent(LocalDateTime.now(),account.getCustomer().getName(), AccountEventType.INTEREST));
-        // accountDAO.updateAccount(account);
-        notifyObservers(accountEntry);
+    public void addInterestForAllAccounts() {
+        accountDAO.loadAllAccounts().forEach( account -> {
+            AccountEntry accountEntry = account.addInterest();
+            // accountDAO.updateAccount(account);
+            notifyObservers(accountEntry);
+        });
     }
 
     protected AccountDAO getAccountDAO(){

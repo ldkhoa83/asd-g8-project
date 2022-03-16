@@ -4,6 +4,7 @@ import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
+import org.miu.asd.banking.domain.interestCalculator.PersonalCheckingInterest;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,11 +12,13 @@ import java.util.HashSet;
 public abstract class Account {
     private String accountNumber;
     private Customer customer;
+    private InterestComputationStrategy interestComputationStrategy;
     private Collection<AccountEntry> accountEntries = new HashSet<>();
 
     public Account(String accountNumber, Customer customer) {
         this.accountNumber = accountNumber;
         this.customer = customer;
+        this.interestComputationStrategy = new PersonalCheckingInterest(); // constructor injection
     }
 
     public Double balance(Interval interval) {
@@ -40,6 +43,14 @@ public abstract class Account {
 
     public AccountEntry deposit(Double amountOfMoney, AccountEvent accountEvent){
         AccountEntry accountEntry = new AccountEntry(amountOfMoney, accountEvent, LocalDateTime.now());
+        accountEntries.add(accountEntry);
+        return accountEntry;
+    }
+
+    public AccountEntry addInterest(){
+        LocalDateTime time = LocalDateTime.now();
+        AccountEvent accountEvent = new BasicAccountEvent(time, customer.getName(), AccountEventType.INTEREST);
+        AccountEntry accountEntry = new AccountEntry(interestComputationStrategy.computeInterest(balance()), accountEvent, LocalDateTime.now());
         accountEntries.add(accountEntry);
         return accountEntry;
     }

@@ -31,9 +31,9 @@ public class BankMainFrame extends FrameTemplate implements BankUICommandControl
     };
 
     private final ActionListener addInterest = (actionEvent) -> {
-            UIBean uiBean = new UIBean();
-            addInterestUICommand.execute(uiBean);
-            updateContent();
+        UIBean uiBean = new UIBean();
+        addInterestUICommand.execute(uiBean);
+        updateContent();
 
         JOptionPane.showMessageDialog(null, "Add interest to all accounts", "Add interest to all accounts", JOptionPane.WARNING_MESSAGE);
     };

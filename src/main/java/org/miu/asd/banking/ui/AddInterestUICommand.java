@@ -12,5 +12,6 @@ public class AddInterestUICommand extends UICommand<UIBean> {
 
     @Override
     public void execute(UIBean bean) {
+        getAccountService().addInterestForAllAccounts();
     }
 }

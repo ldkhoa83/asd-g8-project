@@ -12,8 +12,10 @@ public class BankAccountService extends BasicAccountService {
         super(accountDao);
     }
 
+    protected void addInterestForAllAccounts(Account account, Double amountOfMoney, AccountEvent accountEvent) {
+        account.withdraw(amountOfMoney,accountEvent);
+    }
 
-    @Override
     protected AccountEntry performWithdrawOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent) {
         return account.withdraw(amountOfMoney,accountEvent);
     }
