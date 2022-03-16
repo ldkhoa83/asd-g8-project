@@ -43,11 +43,7 @@ public class CreditCardAccount extends Account {
                 .filter(accountEntry -> accountEntry.getAccountEvent().getAccountEventType() == AccountEventType.CHARGED)
                 .map(AccountEntry::getAmountOfMoney)
                 .reduce((x,y) -> x + y).orElse(0.0);
-        Double totalCredits = getAccountEntries().stream()
-                .filter(entry -> interval.contains(entry.getWhenRecorded().toDateTime()))
-                .filter(accountEntry -> accountEntry.getAccountEvent().getAccountEventType() == AccountEventType.DEPOSIT)
-                .map(AccountEntry::getAmountOfMoney)
-                .reduce((x,y) -> x + y).orElse(0.0);
+        Double totalCredits = computeDeposits(interval);
 
         return buildReportContent(previousBalance,totalCharges,totalCredits,0.0,0.0);
     }

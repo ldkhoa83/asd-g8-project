@@ -10,6 +10,6 @@ public class FrameUpdateUICommand extends UICommand<UIBean> {
 
     @Override
     public void execute(UIBean bean) {
-
+        bean.setAllAccounts(getAccountService().getAllAccounts());
     }
 }

@@ -13,16 +13,18 @@ import javax.swing.*;
 public class AddCreditCardAccountDialog extends JDialog
 {
 	private UICommand<CreditCardUIBean> addCCAccountUICommand;
+	private CreditCardMainFrame parentFrame;
 
 	public AddCreditCardAccountDialog(CreditCardMainFrame parent, UICommand<CreditCardUIBean> uiCommand)
 	{
 		super(parent);
 		addCCAccountUICommand = uiCommand;
+		this.parentFrame = parent;
 
-		initDialog(parent);
+		initDialog();
 	}
 
-	private void initDialog(CreditCardMainFrame parent) {
+	private void initDialog() {
 		setTitle("Add credit card account");
 		setModal(true);
 		getContentPane().setLayout(null);
@@ -127,7 +129,7 @@ public class AddCreditCardAccountDialog extends JDialog
 			bean.setCustomer(customer);
 			bean.setExpiredDate(expDate);
 			addCCAccountUICommand.execute(bean);
-			parent.updateContent();
+			parentFrame.updateContent();
 			dispose();
 		});
 		JButton_Cancel.addActionListener(e -> dispose());
