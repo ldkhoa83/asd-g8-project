@@ -16,16 +16,23 @@ public abstract class Account {
     private String accountNumber;
     private Customer customer;
     private Collection<AccountEntry> accountEntries = new HashSet<>();
-    private InterestComputationStrategy interestComputationStrategy;
+    private InterestComputationStrategy interestStrategy;
 
-    public Account(String accountNumber, Customer customer, AccountType accountType) {
+    public Account(String accountNumber, Customer customer) {
+
+        //public Account(String accountNumber, Customer customer, AccountType accountType) {
+
         this.accountNumber = accountNumber;
         this.customer = customer;
-        if(accountType.equals(AccountType.CHECKING)) {
-            this.interestComputationStrategy = new CheckingInterest();
-        } else if(accountType.equals(AccountType.SAVING)) {
-            this.interestComputationStrategy = new SavingInterest();
-        }
+        //if(accountType.equals(AccountType.CHECKING)) {
+          //  this.interestStrategy = new CheckingInterest();
+        //} else if(accountType.equals(AccountType.SAVING)) {
+          //  this.interestStrategy = new SavingInterest();
+        //}
+    }
+
+    public void setInterestStrategy(InterestComputationStrategy interestStrategy){
+        this.interestStrategy=interestStrategy;
     }
 
     public Double balance(Interval interval) {
@@ -77,7 +84,7 @@ public abstract class Account {
     public AccountEntry addInterest(){
         LocalDateTime time = LocalDateTime.now();
         AccountEvent accountEvent = new BasicAccountEvent(time, getCustomer().getName(), AccountEventType.INTEREST);
-        AccountEntry accountEntry = new AccountEntry(interestComputationStrategy.computeInterest(balance()), accountEvent, LocalDateTime.now());
+        AccountEntry accountEntry = new AccountEntry(interestStrategy.computeInterest(balance()), accountEvent, LocalDateTime.now());
         getAccountEntries().add(accountEntry);
         return accountEntry;
     }

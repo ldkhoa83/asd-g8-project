@@ -8,10 +8,10 @@ import org.miu.asd.banking.ui.AccountType;
 import org.miu.asd.framework.domain.*;
 
 public class CheckAccount extends Account {
-    private InterestComputationStrategy interestComputationStrategy;
 
     public CheckAccount(String accountNumber, Customer customer) {
-        super(accountNumber, customer, AccountType.CHECKING);
+        super(accountNumber, customer);
+        super.setInterestStrategy(new CheckingInterest());
     }
 
     @Override
