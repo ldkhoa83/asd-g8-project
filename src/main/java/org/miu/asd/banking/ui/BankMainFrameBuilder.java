@@ -53,7 +53,7 @@ public class BankMainFrameBuilder {
         return INSTANCE;
     }
 
-    public static BankMainFrameBuilder withMainFrameConfig(BankMainFrameConfig bankMainFrameConfig){
+    public BankMainFrameBuilder withMainFrameConfig(BankMainFrameConfig bankMainFrameConfig){
         mainFrameConfig = bankMainFrameConfig;
         return INSTANCE;
     }
