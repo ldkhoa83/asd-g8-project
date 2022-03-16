@@ -2,6 +2,7 @@ package org.miu.asd.framework.service;
 
 import org.joda.time.Instant;
 import org.joda.time.Interval;
+import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
 import org.miu.asd.framework.dao.AccountDAO;
 import org.miu.asd.framework.domain.*;
@@ -46,6 +47,14 @@ public abstract class BasicAccountService extends Observable implements AccountS
         Account account = accountDAO.loadAccount(accountID);
         AccountEntry accountEntry = performWithdrawOnAccount(account,amountOfMoney,accountEvent);
         accountDAO.updateAccount(account);
+        notifyObservers(accountEntry);
+    }
+
+    @Override
+    public void addInterest(String accountID) {
+        Account account = accountDAO.loadAccount(accountID);
+        AccountEntry accountEntry = performDepositOnAccount(account,account.balance()*0.1,new BasicAccountEvent(LocalDateTime.now(),account.getCustomer().getName(), AccountEventType.INTEREST));
+        // accountDAO.updateAccount(account);
         notifyObservers(accountEntry);
     }
 

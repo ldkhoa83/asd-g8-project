@@ -1,10 +1,8 @@
 package org.miu.asd.creditcard.ui;
 
+import org.miu.asd.framework.domain.Account;
 import org.miu.asd.framework.service.AccountService;
-import org.miu.asd.framework.ui.DepositDialog;
-import org.miu.asd.framework.ui.DepositUICommand;
-import org.miu.asd.framework.ui.FrameConfig;
-import org.miu.asd.framework.ui.FrameTemplate;
+import org.miu.asd.framework.ui.*;
 
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -51,12 +49,25 @@ public class CreditCardMainFrame extends FrameTemplate {
         }
     };
 
+    private final ActionListener addInterest = (ActionListener) -> {
+        int selection = getSelectionIndex();
+        //Interest
+        getAccountService().getAllAccounts().forEach( a -> {
+            UICommand addInterestUICommand = new AddInterestUICommand(getAccountService());
+            CreditCardUIBean uiBean = new CreditCardUIBean();
+            uiBean.setAccountNumber(a.getAccountNumber());
+            addInterestUICommand.execute(uiBean);
+        });
+        updateContent();
+    };
+
     @Override
     public Map<String, ButtonConfig> specifiesButtons() {
         Map<String,ButtonConfig> buttons = new HashMap<>();
         buttons.put("Add credit account",new ButtonConfig(createCreditCardAccount,24,20,192,33));
         buttons.put("Deposit",new ButtonConfig(deposit,468,104,96,33));
-        buttons.put("Charge", new ButtonConfig(charge,468,164,96,33));
+        buttons.put("Charge", new ButtonConfig(charge,468,144,96,33));
+        buttons.put("Add Interest", new ButtonConfig(addInterest,468,200,96,33));
         buttons.put("Generate Bill", new ButtonConfig(generateBill,240,20,192,33));
         buttons.put("Exit",new ButtonConfig(getExitEventHandler(),468,248,96,31));
         return buttons;

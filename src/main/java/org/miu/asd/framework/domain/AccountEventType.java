@@ -4,6 +4,6 @@ public enum AccountEventType {
     NONE,
     DEPOSIT,
     WITHDRAW,
-    CHARGED;
-
+    CHARGED,
+    INTEREST
 }

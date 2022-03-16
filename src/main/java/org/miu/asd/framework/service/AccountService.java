@@ -17,6 +17,8 @@ public interface AccountService {
 
     void withdraw(String accountID, Double amountOfMoney, AccountEvent accountEvent);
 
+    void addInterest(String accountID);
+
     Collection<Account> getAllAccounts();
 
     default void charge(String accountID, Double amountOfMoney, AccountEvent accountEvent){

@@ -1,6 +1,8 @@
 package org.miu.asd.banking.ui;
 
 import org.miu.asd.banking.service.BankAccountService;
+import org.miu.asd.creditcard.ui.AddInterestUICommand;
+import org.miu.asd.creditcard.ui.CreditCardUIBean;
 import org.miu.asd.framework.ui.*;
 
 import javax.swing.*;
@@ -28,6 +30,15 @@ public class BankMainFrame extends FrameTemplate {
     };
 
     private final ActionListener addInterest = (actionEvent) -> {
+        int selection = getSelectionIndex();
+        //Interest
+        getAccountService().getAllAccounts().forEach( a -> {
+            UICommand addInterestUICommand = new AddInterestUICommand(getAccountService());
+            CreditCardUIBean uiBean = new CreditCardUIBean();
+            uiBean.setAccountNumber(a.getAccountNumber());
+            addInterestUICommand.execute(uiBean);
+        });
+        updateContent();
         JOptionPane.showMessageDialog(null, "Add interest to all accounts", "Add interest to all accounts", JOptionPane.WARNING_MESSAGE);
     };
 
