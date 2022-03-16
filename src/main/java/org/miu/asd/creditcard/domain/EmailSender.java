@@ -1,24 +1,19 @@
 package org.miu.asd.creditcard.domain;
 
 import org.miu.asd.banking.domain.Person;
-import org.miu.asd.framework.domain.Account;
-import org.miu.asd.framework.domain.AccountEventType;
-import org.miu.asd.framework.domain.Observer;
+import org.miu.asd.framework.domain.*;
 import org.miu.asd.framework.service.BasicAccountService;
 
 public class EmailSender implements Observer {
 
-
-    private BasicAccountService basicAccountService;
     @Override
-    public void update() {
-        if (basicAccountService.getAccountEventType() == AccountEventType.CHARGED || basicAccountService.getAccountEventType() == AccountEventType.DEPOSIT) {
-            Account account = basicAccountService.getCurrentAccount();
-            double amount = basicAccountService.getChangedAmount();
-            if (account.getCustomer() instanceof Person && (amount <= 400 || account.balance() > 0)) {
-                return;
+    public void update(AccountEntry accountEntry, Account account) {
+        if (accountEntry.getAccountEvent().getAccountEventType() == AccountEventType.CHARGED || accountEntry.getAccountEvent().getAccountEventType() == AccountEventType.DEPOSIT) {
+            if (account.getCustomer() instanceof Customer && (accountEntry.getAmountOfMoney() >= 400 || accountEntry.getAmountOfMoney() < 0)) {
+                System.out.println("Sending email to: " + account.getCustomer().getEmail() + "In account (" + account.getAccountNumber() + ") amount = \n" + accountEntry.getAmountOfMoney() + " - " + accountEntry.getAccountEvent().getAccountEventType());
+//            } else if (account.getCustomer() instanceof Customer)
+//                System.out.println("Sending email to: " + account.getCustomer().getEmail() + "In account (" + account.getAccountNumber() + ") amount = \n" + accountEntry.getAmountOfMoney() + " - " + accountEntry.getAccountEvent().getAccountEventType());
             }
-            System.out.println("Sending email to: " + account.getCustomer().getEmail() + " Operation in account (" + account.getAccountNumber() + ") amount = \n" + amount + " - " + basicAccountService.getAccountEventType());
         }
     }
 }
