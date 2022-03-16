@@ -14,7 +14,7 @@ public class CreditCardAccountService extends BasicAccountService {
 
     @Override
     protected AccountEntry performWithdrawOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent) {
-        return account.deposit(amountOfMoney,accountEvent);
+        return account.deposit(-amountOfMoney,accountEvent);
     }
 
     @Override
