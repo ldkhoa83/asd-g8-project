@@ -11,18 +11,18 @@ import java.util.Collection;
 import java.util.List;
 
 public abstract class BasicAccountService implements Observable, AccountService {
+
     private AccountDAO accountDAO;
     protected AccountEventType accountEventType;
-    private Account currentAccount;
-    private double changedAmount;
-    private List<Observer> observers;
+
+
     public BasicAccountService(AccountDAO accountDao) {
         this.accountDAO = accountDao;
     }
 
     @Override
     public Account createAccount(String accountID, Customer customer, AccountFactory accountFactory) {
-        Account account = accountFactory.initAccount(accountID,customer);
+        Account account = accountFactory.initAccount(accountID, customer);
         getAccountDAO().saveAccount(account);
         return account;
     }
@@ -40,20 +40,22 @@ public abstract class BasicAccountService implements Observable, AccountService 
     @Override
     public void deposit(String accountID, Double amountOfMoney, AccountEvent accountEvent) {
         Account account = accountDAO.loadAccount(accountID);
-        AccountEntry accountEntry = performDepositOnAccount(account,amountOfMoney,accountEvent);
+        AccountEntry accountEntry = performDepositOnAccount(account, amountOfMoney, accountEvent);
         accountDAO.updateAccount(account);
-        //notifyObservers();
+        notifyObservers(accountEntry,account);
+
     }
 
     @Override
     public void withdraw(String accountID, Double amountOfMoney, AccountEvent accountEvent) {
         Account account = accountDAO.loadAccount(accountID);
-        AccountEntry accountEntry = performWithdrawOnAccount(account,amountOfMoney,accountEvent);
+        AccountEntry accountEntry = performWithdrawOnAccount(account, amountOfMoney, accountEvent);
         accountDAO.updateAccount(account);
-        //notifyObservers();
+        notifyObservers(accountEntry,account);
+
     }
 
-    protected AccountDAO getAccountDAO(){
+    protected AccountDAO getAccountDAO() {
         return accountDAO;
     }
 
@@ -65,34 +67,12 @@ public abstract class BasicAccountService implements Observable, AccountService 
         return account.generateReport(lastMonth);
     }
 
-    public double getChangedAmount() {
-        return changedAmount;
-    }
-
-    @Override
-    public void registerObserver(Observer observer) {
-        this.observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) {
-        this.observers.remove(observer);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (Observer ob: observers){
-            ob.update();
-        }
-    }
-
     public AccountEventType getAccountEventType() {
         return accountEventType;
     }
 
-    public Account getCurrentAccount(){
-        return currentAccount;
-    }
+
+    protected abstract  void  performNotify(AccountEntry accountEntry, Account account);
 
     protected abstract AccountEntry performWithdrawOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent);
 
