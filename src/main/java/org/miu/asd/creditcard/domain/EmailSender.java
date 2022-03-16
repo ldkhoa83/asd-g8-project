@@ -12,7 +12,7 @@ public class EmailSender implements Observer {
     private BasicAccountService basicAccountService;
     @Override
     public void update() {
-        if (basicAccountService.getAccountEventType() == AccountEventType.WITHDRAW || basicAccountService.getAccountEventType() == AccountEventType.DEPOSIT) {
+        if (basicAccountService.getAccountEventType() == AccountEventType.CHARGED || basicAccountService.getAccountEventType() == AccountEventType.DEPOSIT) {
             Account account = basicAccountService.getCurrentAccount();
             double amount = basicAccountService.getChangedAmount();
             if (account.getCustomer() instanceof Person && (amount <= 400 || account.balance() > 0)) {
