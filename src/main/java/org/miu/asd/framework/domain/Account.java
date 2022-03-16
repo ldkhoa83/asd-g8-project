@@ -4,10 +4,7 @@ import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
-import org.miu.asd.banking.domain.interestCalculator.CheckingInterest;
 import org.miu.asd.banking.domain.interestCalculator.InterestComputationStrategy;
-import org.miu.asd.banking.domain.interestCalculator.SavingInterest;
-import org.miu.asd.banking.ui.AccountType;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -83,7 +80,7 @@ public abstract class Account {
 
     public AccountEntry addInterest(){
         LocalDateTime time = LocalDateTime.now();
-        AccountEvent accountEvent = new BasicAccountEvent(time, getCustomer().getName(), AccountEventType.INTEREST);
+        AccountEvent accountEvent = new BaseAccountEvent(time, getCustomer().getName(), AccountEventType.INTEREST);
         AccountEntry accountEntry = new AccountEntry(interestStrategy.computeInterest(balance()), accountEvent, LocalDateTime.now());
         getAccountEntries().add(accountEntry);
         return accountEntry;

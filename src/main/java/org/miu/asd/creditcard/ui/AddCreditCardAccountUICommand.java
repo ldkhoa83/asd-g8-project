@@ -3,10 +3,9 @@ package org.miu.asd.creditcard.ui;
 import org.miu.asd.creditcard.service.CreditCardAccountFactory;
 import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.UICommand;
-import org.miu.asd.framework.ui.UICommandBean;
 
-public class AddCCAccountUICommand extends UICommand<CreditCardUIBean> {
-    public AddCCAccountUICommand(AccountService accountService) {
+public class AddCreditCardAccountUICommand extends UICommand<CreditCardUIBean> {
+    public AddCreditCardAccountUICommand(AccountService accountService) {
         super(accountService);
     }
 

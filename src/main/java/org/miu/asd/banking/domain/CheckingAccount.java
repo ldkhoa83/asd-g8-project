@@ -1,15 +1,13 @@
 package org.miu.asd.banking.domain;
 
 import org.joda.time.Interval;
-import org.miu.asd.banking.domain.interestCalculator.InterestComputationStrategy;
-import org.miu.asd.banking.ui.AccountType;
 import org.miu.asd.framework.domain.*;
 
 import java.io.StringWriter;
 
-public class CheckAccount extends Account {
+public class CheckingAccount extends Account {
 
-    public CheckAccount(String accountNumber, Customer customer) {
+    public CheckingAccount(String accountNumber, Customer customer) {
         super(accountNumber, customer);
         super.setInterestStrategy(new CheckingInterest());
     }

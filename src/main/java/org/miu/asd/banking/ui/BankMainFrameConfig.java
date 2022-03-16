@@ -1,6 +1,6 @@
 package org.miu.asd.banking.ui;
 
-import org.miu.asd.banking.domain.CheckAccount;
+import org.miu.asd.banking.domain.CheckingAccount;
 import org.miu.asd.banking.domain.Company;
 import org.miu.asd.framework.domain.Account;
 import org.miu.asd.framework.ui.FrameConfig;
@@ -38,7 +38,7 @@ public class BankMainFrameConfig implements FrameConfig {
         rowdata[1] = account.getCustomer().getName();
         rowdata[2] = account.getCustomer().getCity();
         rowdata[3] = account.getCustomer() instanceof Company ? "C" : "P";
-        rowdata[4] = account instanceof CheckAccount ? "Ch" : "S";
+        rowdata[4] = account instanceof CheckingAccount ? "Ch" : "S";
         rowdata[5] = account.balance();
         return rowdata;
     }

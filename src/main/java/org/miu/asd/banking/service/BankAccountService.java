@@ -1,17 +1,14 @@
 package org.miu.asd.banking.service;
 
-import org.joda.time.Instant;
-import org.joda.time.Interval;
-import org.joda.time.Period;
 import org.miu.asd.banking.domain.EmailSender;
 import org.miu.asd.framework.dao.AccountDAO;
 import org.miu.asd.framework.domain.*;
-import org.miu.asd.framework.service.BasicAccountService;
+import org.miu.asd.framework.service.BaseAccountService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BankAccountService extends BasicAccountService implements Observable {
+public class BankAccountService extends BaseAccountService implements Observable {
 
     private List<Observer> observers = new ArrayList<>();
 

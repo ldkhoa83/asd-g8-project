@@ -2,22 +2,20 @@ package org.miu.asd.framework.service;
 
 import org.joda.time.Instant;
 import org.joda.time.Interval;
-import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
 import org.miu.asd.framework.dao.AccountDAO;
 import org.miu.asd.framework.domain.*;
 
 import java.io.StringWriter;
 import java.util.Collection;
-import java.util.List;
 
-public abstract class BasicAccountService implements Observable, AccountService {
+public abstract class BaseAccountService implements Observable, AccountService {
 
     private AccountDAO accountDAO;
     protected AccountEventType accountEventType;
 
 
-    public BasicAccountService(AccountDAO accountDao) {
+    public BaseAccountService(AccountDAO accountDao) {
         this.accountDAO = accountDao;
     }
 

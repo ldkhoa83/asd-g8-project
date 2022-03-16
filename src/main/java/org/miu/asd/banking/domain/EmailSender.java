@@ -4,7 +4,6 @@ import org.miu.asd.framework.domain.Account;
 import org.miu.asd.framework.domain.AccountEntry;
 import org.miu.asd.framework.domain.AccountEventType;
 import org.miu.asd.framework.domain.Observer;
-import org.miu.asd.framework.service.BasicAccountService;
 
 public class EmailSender implements Observer {
 

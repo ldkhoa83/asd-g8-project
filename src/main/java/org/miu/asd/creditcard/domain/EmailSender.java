@@ -1,8 +1,6 @@
 package org.miu.asd.creditcard.domain;
 
-import org.miu.asd.banking.domain.Person;
 import org.miu.asd.framework.domain.*;
-import org.miu.asd.framework.service.BasicAccountService;
 
 public class EmailSender implements Observer {
 

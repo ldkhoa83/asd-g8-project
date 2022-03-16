@@ -3,12 +3,12 @@ package org.miu.asd.creditcard.service;
 import org.miu.asd.creditcard.domain.EmailSender;
 import org.miu.asd.framework.dao.AccountDAO;
 import org.miu.asd.framework.domain.*;
-import org.miu.asd.framework.service.BasicAccountService;
+import org.miu.asd.framework.service.BaseAccountService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreditCardAccountService extends BasicAccountService implements Observable {
+public class CreditCardAccountService extends BaseAccountService implements Observable {
 
     private List<Observer> observers = new ArrayList<>();
 
