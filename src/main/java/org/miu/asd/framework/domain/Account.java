@@ -41,6 +41,26 @@ public abstract class Account {
         return currentBalance;
     }
 
+    public Double computeWithdraws(Interval interval){
+        return getAccountEntries().stream()
+                .filter(entry -> interval.contains(entry.getWhenRecorded().toDateTime()))
+                .filter(accountEntry -> accountEntry.getAccountEvent().getAccountEventType() == AccountEventType.WITHDRAW)
+                .map(AccountEntry::getAmountOfMoney)
+                .reduce((x,y) -> x + y).orElse(0.0);
+    }
+
+    public Double computeDeposits(Interval interval){
+        return getAccountEntries().stream()
+                .filter(entry -> interval.contains(entry.getWhenRecorded().toDateTime()))
+                .filter(accountEntry -> accountEntry.getAccountEvent().getAccountEventType() == AccountEventType.DEPOSIT)
+                .map(AccountEntry::getAmountOfMoney)
+                .reduce((x,y) -> x + y).orElse(0.0);
+    }
+
+    public void setAccountEntries(Collection<AccountEntry> accountEntries) {
+        this.accountEntries = accountEntries;
+    }
+
     public AccountEntry deposit(Double amountOfMoney, AccountEvent accountEvent){
         AccountEntry accountEntry = new AccountEntry(amountOfMoney, accountEvent, LocalDateTime.now());
         accountEntries.add(accountEntry);

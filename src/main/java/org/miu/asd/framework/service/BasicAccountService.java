@@ -8,11 +8,11 @@ import org.miu.asd.framework.dao.AccountDAO;
 import org.miu.asd.framework.domain.*;
 
 import java.util.Collection;
-import java.util.Observable;
+import java.util.List;
 
-public abstract class BasicAccountService extends Observable implements AccountService {
+public abstract class BasicAccountService implements Observable, AccountService {
     private AccountDAO accountDAO;
-
+    private List<Observer> observers;
     public BasicAccountService(AccountDAO accountDao) {
         this.accountDAO = accountDao;
     }
@@ -39,7 +39,7 @@ public abstract class BasicAccountService extends Observable implements AccountS
         Account account = accountDAO.loadAccount(accountID);
         AccountEntry accountEntry = performDepositOnAccount(account,amountOfMoney,accountEvent);
         accountDAO.updateAccount(account);
-        notifyObservers(accountEntry);
+        notifyObservers();
     }
 
     @Override
@@ -47,7 +47,7 @@ public abstract class BasicAccountService extends Observable implements AccountS
         Account account = accountDAO.loadAccount(accountID);
         AccountEntry accountEntry = performWithdrawOnAccount(account,amountOfMoney,accountEvent);
         accountDAO.updateAccount(account);
-        notifyObservers(accountEntry);
+        notifyObservers();
     }
 
     @Override
@@ -55,7 +55,7 @@ public abstract class BasicAccountService extends Observable implements AccountS
         accountDAO.loadAllAccounts().forEach( account -> {
             AccountEntry accountEntry = account.addInterest();
             // accountDAO.updateAccount(account);
-            notifyObservers(accountEntry);
+            notifyObservers();
         });
     }
 
@@ -70,7 +70,22 @@ public abstract class BasicAccountService extends Observable implements AccountS
 
         return account.generateReport(lastMonth);
     }
+    @Override
+    public void registerObserver(Observer observer) {
+        this.observers.add(observer);
+    }
 
+    @Override
+    public void removeObserver(Observer observer) {
+        this.observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer ob: observers){
+            ob.update();
+        }
+    }
     protected abstract AccountEntry performWithdrawOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent);
 
     protected abstract AccountEntry performDepositOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent);

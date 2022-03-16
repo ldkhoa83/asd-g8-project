@@ -48,12 +48,12 @@ public class BankMainFrame extends FrameTemplate implements BankUICommandControl
     };
 
 
-    public BankMainFrame(FrameConfig frameConfig) {
+    BankMainFrame(FrameConfig frameConfig) {
         super(frameConfig);
         constructFrame(NO_TITLE);
     }
 
-    public BankMainFrame(FrameConfig frameConfig, String title){
+     BankMainFrame(FrameConfig frameConfig, String title){
         super(frameConfig);
         constructFrame(title);
     }
