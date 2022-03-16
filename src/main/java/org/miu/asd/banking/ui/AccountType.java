@@ -1,7 +1,7 @@
 package org.miu.asd.banking.ui;
 
 public enum AccountType {
-    SAVING("Saving"),CHECKING("Checking");
+    SAVING("Saving"),CHECKING("Checking"),CREDIT("Credit");
 
     private String name;
 

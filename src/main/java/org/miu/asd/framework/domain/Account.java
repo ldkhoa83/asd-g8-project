@@ -4,7 +4,10 @@ import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
-import org.miu.asd.banking.domain.interestCalculator.PersonalCheckingInterest;
+import org.miu.asd.banking.domain.interestCalculator.CheckingInterest;
+import org.miu.asd.banking.domain.interestCalculator.InterestComputationStrategy;
+import org.miu.asd.banking.domain.interestCalculator.SavingInterest;
+import org.miu.asd.banking.ui.AccountType;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -12,13 +15,17 @@ import java.util.HashSet;
 public abstract class Account {
     private String accountNumber;
     private Customer customer;
-    private InterestComputationStrategy interestComputationStrategy;
     private Collection<AccountEntry> accountEntries = new HashSet<>();
+    private InterestComputationStrategy interestComputationStrategy;
 
-    public Account(String accountNumber, Customer customer) {
+    public Account(String accountNumber, Customer customer, AccountType accountType) {
         this.accountNumber = accountNumber;
         this.customer = customer;
-        this.interestComputationStrategy = new PersonalCheckingInterest(); // constructor injection
+        if(accountType.equals(AccountType.CHECKING)) {
+            this.interestComputationStrategy = new CheckingInterest();
+        } else if(accountType.equals(AccountType.SAVING)) {
+            this.interestComputationStrategy = new SavingInterest();
+        }
     }
 
     public Double balance(Interval interval) {
@@ -69,9 +76,9 @@ public abstract class Account {
 
     public AccountEntry addInterest(){
         LocalDateTime time = LocalDateTime.now();
-        AccountEvent accountEvent = new BasicAccountEvent(time, customer.getName(), AccountEventType.INTEREST);
+        AccountEvent accountEvent = new BasicAccountEvent(time, getCustomer().getName(), AccountEventType.INTEREST);
         AccountEntry accountEntry = new AccountEntry(interestComputationStrategy.computeInterest(balance()), accountEvent, LocalDateTime.now());
-        accountEntries.add(accountEntry);
+        getAccountEntries().add(accountEntry);
         return accountEntry;
     }
 

@@ -2,6 +2,7 @@ package org.miu.asd.creditcard.domain;
 
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
+import org.miu.asd.banking.ui.AccountType;
 import org.miu.asd.framework.domain.*;
 
 
@@ -10,13 +11,13 @@ public class CreditCardAccount extends Account {
     private CreditCardType creditCardType;
 
     public CreditCardAccount(String accountNumber, Customer customer, LocalDate expiredDate, CreditCardType creditCardType) {
-        super(accountNumber, customer);
+        super(accountNumber, customer, AccountType.CREDIT);
         this.expiredDate = expiredDate;
         this.creditCardType = creditCardType;
     }
 
     public CreditCardAccount(String accountNumber, Customer customer){
-        super(accountNumber,customer);
+        super(accountNumber,customer,AccountType.CREDIT);
     }
 
     public LocalDate getExpiredDate() {
