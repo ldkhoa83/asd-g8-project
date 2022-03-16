@@ -1,4 +1,4 @@
-package org.miu.asd.banking.domain.interestCalculator;
+package org.miu.asd.banking.domain.interestcalculator;
 
 import org.miu.asd.framework.domain.InterestComputationStrategy;
 

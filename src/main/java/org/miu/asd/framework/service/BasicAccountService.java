@@ -1,13 +1,12 @@
 package org.miu.asd.framework.service;
 
 import org.miu.asd.framework.dao.AccountDAO;
-import org.miu.asd.framework.domain.Account;
-import org.miu.asd.framework.domain.AccountEntry;
-import org.miu.asd.framework.domain.AccountEvent;
-import org.miu.asd.framework.domain.Customer;
+import org.miu.asd.framework.domain.*;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Observable;
+import java.util.stream.Collectors;
 
 public abstract class BasicAccountService extends Observable implements AccountService {
     private AccountDAO accountDAO;
@@ -49,6 +48,23 @@ public abstract class BasicAccountService extends Observable implements AccountS
         notifyObservers(accountEntry);
     }
 
+    @Override
+    public void addInterest() {
+        Account account;
+        Collection<String> accountNumbers=getAllAccounts().stream()
+                .map(Account::getAccountNumber).collect(Collectors.toList());
+        for(String acct:accountNumbers){
+            account=accountDAO.loadAccount(acct);
+            account.addInterest();
+            AccountEntry accountEntry = performInterest(account);
+            accountDAO.updateAccount(account);
+            //notifyObservers(accountEntry);
+        }
+
+    }
+
+
+
     protected AccountDAO getAccountDAO(){
         return accountDAO;
     }
@@ -56,4 +72,6 @@ public abstract class BasicAccountService extends Observable implements AccountS
     protected abstract AccountEntry performWithdraw(Account account, Double amountOfMoney, AccountEvent accountEvent);
 
     protected abstract AccountEntry performDeposit(Account account, Double amountOfMoney, AccountEvent accountEvent);
+
+    protected abstract AccountEntry performInterest(Account account);
 }

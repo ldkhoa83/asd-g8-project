@@ -11,6 +11,7 @@ public abstract class Account {
     private String accountNumber;
     private Customer customer;
     private Collection<AccountEntry> accountEntries = new HashSet<>();
+    private InterestComputationStrategy interestStrategy;
 
     public Account(String accountNumber, Customer customer) {
         this.accountNumber = accountNumber;
@@ -45,6 +46,14 @@ public abstract class Account {
         return accountEntry;
     }
 
+    public AccountEntry addInterest(){
+        Double calculatedInterest=interestStrategy.computeInterest(balance());
+        AccountEvent accountEvent=new AccountEventImpl(LocalDateTime.now(),null,AccountEventTypeImpl.INTEREST);
+        AccountEntry accountEntry = new AccountEntry(calculatedInterest, accountEvent, LocalDateTime.now());
+        accountEntries.add(accountEntry);
+        return accountEntry;
+    }
+
     public abstract Report generateReport(Interval interval);
 
     public String getAccountNumber() {
@@ -54,4 +63,6 @@ public abstract class Account {
     public Customer getCustomer() {
         return customer;
     }
+
+
 }

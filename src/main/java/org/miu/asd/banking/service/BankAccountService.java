@@ -6,7 +6,7 @@ import org.miu.asd.framework.domain.AccountEntry;
 import org.miu.asd.framework.domain.AccountEvent;
 import org.miu.asd.framework.service.BasicAccountService;
 
-public class BankAccountService extends BasicAccountService {
+public class BankAccountService extends BasicAccountService{
 
     public BankAccountService(AccountDAO accountDao) {
         super(accountDao);
@@ -22,5 +22,18 @@ public class BankAccountService extends BasicAccountService {
     protected AccountEntry performDeposit(Account account, Double amountOfMoney, AccountEvent accountEvent) {
         return account.deposit(amountOfMoney,accountEvent);
     }
+
+
+    @Override
+    protected AccountEntry performInterest(Account account){
+        return account.addInterest();
+    }
+
+
+
+
+
+
+
 
 }
