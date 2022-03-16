@@ -2,6 +2,7 @@ package org.miu.asd.framework.domain;
 
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -10,12 +11,8 @@ public abstract class Account {
     private String accountNumber;
     private Customer customer;
     private Collection<AccountEntry> accountEntries = new HashSet<>();
-    private DepositStrategy depositStrategy;
-    private WithdrawStrategy withdrawStrategy;
 
-    public Account(String accountNumber, Customer customer, DepositStrategy depositStrategy, WithdrawStrategy withdrawStrategy) {
-        this.depositStrategy = depositStrategy;
-        this.withdrawStrategy = withdrawStrategy;
+    public Account(String accountNumber, Customer customer) {
         this.accountNumber = accountNumber;
         this.customer = customer;
     }
@@ -29,17 +26,23 @@ public abstract class Account {
     }
 
     public Double balance() {
-        return null;
+        Double currentBalance = 0.0;
+        for(AccountEntry accountEntry : accountEntries){
+            currentBalance += accountEntry.getAmountOfMoney();
+        }
+        return currentBalance;
     }
 
-    public void deposit(Double amountOfMoney, AccountEvent accountEvent){
-        AccountEntry accountEntry = depositStrategy.deposit(amountOfMoney,accountEvent);
+    public AccountEntry deposit(Double amountOfMoney, AccountEvent accountEvent){
+        AccountEntry accountEntry = new AccountEntry(amountOfMoney, accountEvent, LocalDateTime.now());
         accountEntries.add(accountEntry);
+        return accountEntry;
     }
 
-    public void withdraw(Double amountOfMoney, AccountEvent accountEvent){
-        AccountEntry accountEntry = withdrawStrategy.withdraw(amountOfMoney,accountEvent);
+    public AccountEntry withdraw(Double amountOfMoney, AccountEvent accountEvent){
+        AccountEntry accountEntry = new AccountEntry(-amountOfMoney, accountEvent, LocalDateTime.now());
         accountEntries.add(accountEntry);
+        return accountEntry;
     }
 
     public abstract Report generateReport(Interval interval);

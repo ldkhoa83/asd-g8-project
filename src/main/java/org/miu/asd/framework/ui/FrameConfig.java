@@ -22,4 +22,6 @@ public interface FrameConfig {
     int getContentGridHeight();
 
     Object[] buildRow(Account account);
+
+    int getCustomerNameColumnIndex();
 }

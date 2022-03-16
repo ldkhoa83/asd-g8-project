@@ -8,8 +8,8 @@ import org.miu.asd.framework.domain.WithdrawStrategy;
 
 public class SavingAccount extends Account {
 
-    public SavingAccount(String accountNumber, Customer customer, DepositStrategy depositStrategy, WithdrawStrategy withdrawStrategy) {
-        super(accountNumber, customer, depositStrategy, withdrawStrategy);
+    public SavingAccount(String accountNumber, Customer customer) {
+        super(accountNumber, customer);
     }
 
     @Override
