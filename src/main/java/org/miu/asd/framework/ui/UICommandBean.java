@@ -1,6 +1,9 @@
 package org.miu.asd.framework.ui;
 
+import org.miu.asd.framework.domain.Account;
 import org.miu.asd.framework.domain.Customer;
+
+import java.util.Collection;
 
 public interface UICommandBean {
     String getAccountType();
@@ -18,4 +21,8 @@ public interface UICommandBean {
     Double getAmount();
 
     void setAmount(Double amount);
+
+    Collection<Account> getAllAccounts();
+
+    void setAllAccounts(Collection<Account> accounts);
 }

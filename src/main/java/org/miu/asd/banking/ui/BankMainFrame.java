@@ -1,7 +1,5 @@
 package org.miu.asd.banking.ui;
 
-import org.miu.asd.banking.service.BankAccountService;
-import org.miu.asd.creditcard.ui.AddInterestUICommand;
 import org.miu.asd.creditcard.ui.CreditCardUIBean;
 import org.miu.asd.framework.ui.*;
 
@@ -10,14 +8,17 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BankMainFrame extends FrameTemplate {
+public class BankMainFrame extends FrameTemplate implements BankUICommandController{
+
+    private UICommand<UIBean> addAccountCommand;
+    private UICommand<UIBean> addInterestUICommand;
 
     private final ActionListener personalAccount = (actionEvent) -> {
-        openDialog(new AddPersonalAccountDialog(this,new AddAccountUICommand(getAccountService())));
+        openDialog(new AddPersonalAccountDialog(this,addAccountCommand));
     };
 
     private final ActionListener companyAccount = (actionEvent) -> {
-        openDialog(new AddCompanyAccountDialog(this,new AddAccountUICommand(getAccountService())));
+        openDialog(new AddCompanyAccountDialog(this,addAccountCommand));
     };
 
     private final ActionListener deposit = (actionEvent) -> {
@@ -25,20 +26,15 @@ public class BankMainFrame extends FrameTemplate {
         if (selection >= 0) {
             String accnr = (String) getModel().getValueAt(selection, frameConfig.getAccountNumberColumnIndex());
             String customerName = (String) getModel().getValueAt(selection, frameConfig.getCustomerNameColumnIndex());
-            openDialog(new DepositDialog(this, accnr, customerName, new DepositUICommand(getAccountService())),430, 15, 275, 140);
+            openDialog(new DepositDialog(this, accnr, customerName, getDepositCommand()),430, 15, 275, 140);
         }
     };
 
     private final ActionListener addInterest = (actionEvent) -> {
-        int selection = getSelectionIndex();
-        //Interest
-        getAccountService().getAllAccounts().forEach( a -> {
-            UICommand addInterestUICommand = new AddInterestUICommand(getAccountService());
-            CreditCardUIBean uiBean = new CreditCardUIBean();
-            uiBean.setAccountNumber(a.getAccountNumber());
+            UIBean uiBean = new UIBean();
             addInterestUICommand.execute(uiBean);
-        });
-        updateContent();
+            updateContent();
+
         JOptionPane.showMessageDialog(null, "Add interest to all accounts", "Add interest to all accounts", JOptionPane.WARNING_MESSAGE);
     };
 
@@ -47,18 +43,18 @@ public class BankMainFrame extends FrameTemplate {
         if (selection >= 0){
             String accountNumber = (String) getModel().getValueAt(selection, frameConfig.getAccountNumberColumnIndex());
             String customerName = (String) getModel().getValueAt(selection, frameConfig.getCustomerNameColumnIndex());
-            openDialog(new WithdrawDialog(this, accountNumber, customerName, new WithdrawUICommand(getAccountService())),430, 15, 275, 140);
+            openDialog(new WithdrawDialog(this, accountNumber, customerName, getWithdrawCommand()),430, 15, 275, 140);
         }
     };
 
 
-    public BankMainFrame(BankAccountService accountService, FrameConfig frameConfig) {
-        super(accountService, frameConfig);
+    public BankMainFrame(FrameConfig frameConfig) {
+        super(frameConfig);
         constructFrame(NO_TITLE);
     }
 
-    public BankMainFrame(BankAccountService accountService, FrameConfig frameConfig, String title){
-        super(accountService, frameConfig);
+    public BankMainFrame(FrameConfig frameConfig, String title){
+        super(frameConfig);
         constructFrame(title);
     }
 
@@ -75,4 +71,13 @@ public class BankMainFrame extends FrameTemplate {
         return buttons;
     }
 
+    @Override
+    public void setAddAccountCommad(UICommand<UIBean> addAccountCommad) {
+        this.addAccountCommand = addAccountCommad;
+    }
+
+    @Override
+    public void setAddInterestCommand(UICommand<UIBean> addInterestCommand) {
+        this.addInterestUICommand = addInterestCommand;
+    }
 }

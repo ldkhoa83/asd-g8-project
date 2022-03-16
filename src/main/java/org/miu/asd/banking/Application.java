@@ -1,14 +1,12 @@
 package org.miu.asd.banking;
 
-import org.miu.asd.banking.service.BankAccountService;
 import org.miu.asd.banking.ui.BankMainFrame;
-import org.miu.asd.banking.ui.BankMainFrameConfig;
-import org.miu.asd.framework.dao.MemoryAccountDAO;
+import org.miu.asd.banking.ui.BankMainFrameBuilder;
+
 
 public class Application {
     public static void main(String[] args) {
-        BankAccountService bankAccountService = new BankAccountService(new MemoryAccountDAO());
-        BankMainFrame bankMainFrame = new BankMainFrame(bankAccountService, new BankMainFrameConfig(), "Bank Application.");
+        BankMainFrame bankMainFrame = BankMainFrameBuilder.getInstance().withTitle("").build();
         bankMainFrame.setVisible(true);
     }
 }

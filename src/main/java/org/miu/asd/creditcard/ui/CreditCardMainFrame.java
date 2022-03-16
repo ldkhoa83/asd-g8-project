@@ -1,27 +1,29 @@
 package org.miu.asd.creditcard.ui;
 
-import org.miu.asd.framework.domain.Account;
-import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.*;
 
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreditCardMainFrame extends FrameTemplate {
+public class CreditCardMainFrame extends FrameTemplate implements CreditCardUICommandController{
 
-    public CreditCardMainFrame(AccountService accountService, FrameConfig frameConfig) {
-        super(accountService, frameConfig);
+    private UICommand<CreditCardUIBean> addCreditCardAccountCommand;
+    private UICommand<CreditCardUIBean> billReportCommand;
+    private UICommand<CreditCardUIBean> chargeCreditCardCommand;
+
+    public CreditCardMainFrame(FrameConfig frameConfig) {
+        super(frameConfig);
         constructFrame(NO_TITLE);
     }
 
-    public CreditCardMainFrame(AccountService accountService, FrameConfig frameConfig, String title) {
-        super(accountService,frameConfig);
+    public CreditCardMainFrame(FrameConfig frameConfig, String title) {
+        super(frameConfig);
         constructFrame(title);
     }
 
     private final ActionListener createCreditCardAccount = (actionEvent) -> {
-        openDialog(new AddCreditCardAccountDialog(this,new AddCCAccountUICommand(getAccountService())));
+        openDialog(new AddCreditCardAccountDialog(this, addCreditCardAccountCommand));
     };
 
     private final ActionListener deposit = (actionEvent) -> {
@@ -29,7 +31,7 @@ public class CreditCardMainFrame extends FrameTemplate {
         if (selection >= 0) {
             String creditCardNumber = (String) getModel().getValueAt(selection, frameConfig.getAccountNumberColumnIndex());
             String customerName = (String) getModel().getValueAt(selection, frameConfig.getCustomerNameColumnIndex());
-            openDialog(new DepositDialog(this, creditCardNumber, customerName, new DepositUICommand(getAccountService())),430, 15, 275, 200);
+            openDialog(new DepositDialog(this, creditCardNumber, customerName, getDepositCommand()),430, 15, 275, 200);
         }
     };
 
@@ -37,7 +39,7 @@ public class CreditCardMainFrame extends FrameTemplate {
         int selection = getSelectionIndex();
         if (selection >= 0) {
             String creditCardNumber = (String) getModel().getValueAt(selection, frameConfig.getAccountNumberColumnIndex());
-            openDialog(new ChargeDialog(this, creditCardNumber, getAccountService()),430, 15, 275, 140);
+            openDialog(new ChargeDialog(this, creditCardNumber, chargeCreditCardCommand),430, 15, 275, 140);
         }
     };
 
@@ -45,20 +47,8 @@ public class CreditCardMainFrame extends FrameTemplate {
         int selection = getSelectionIndex();
         if (selection >= 0) {
             String creditCardNumber = (String) getModel().getValueAt(selection, frameConfig.getAccountNumberColumnIndex());
-            openDialog(new BillReportDialog(this, new BillCreationUICommand(getAccountService()), creditCardNumber), 450, 20, 400, 350);
+            openDialog(new BillReportDialog(this, this.billReportCommand, creditCardNumber), 450, 20, 400, 350);
         }
-    };
-
-    private final ActionListener addInterest = (ActionListener) -> {
-        int selection = getSelectionIndex();
-        //Interest
-        getAccountService().getAllAccounts().forEach( a -> {
-            UICommand addInterestUICommand = new AddInterestUICommand(getAccountService());
-            CreditCardUIBean uiBean = new CreditCardUIBean();
-            uiBean.setAccountNumber(a.getAccountNumber());
-            addInterestUICommand.execute(uiBean);
-        });
-        updateContent();
     };
 
     @Override
@@ -67,9 +57,23 @@ public class CreditCardMainFrame extends FrameTemplate {
         buttons.put("Add credit account",new ButtonConfig(createCreditCardAccount,24,20,192,33));
         buttons.put("Deposit",new ButtonConfig(deposit,468,104,96,33));
         buttons.put("Charge", new ButtonConfig(charge,468,144,96,33));
-        buttons.put("Add Interest", new ButtonConfig(addInterest,468,200,96,33));
         buttons.put("Generate Bill", new ButtonConfig(generateBill,240,20,192,33));
         buttons.put("Exit",new ButtonConfig(getExitEventHandler(),468,248,96,31));
         return buttons;
+    }
+
+    @Override
+    public void setAddCreditCardAccountCommand(UICommand<CreditCardUIBean> addCreditCardAccountCommand) {
+        this.addCreditCardAccountCommand = addCreditCardAccountCommand;
+    }
+
+    @Override
+    public void setBillReportCommand(UICommand<CreditCardUIBean> billReportCommand) {
+        this.billReportCommand = billReportCommand;
+    }
+
+    @Override
+    public void setChargeCreditCardCommand(UICommand<CreditCardUIBean> chargeCreditCardCommand) {
+        this.chargeCreditCardCommand = chargeCreditCardCommand;
     }
 }

@@ -14,12 +14,12 @@ public class ChargeDialog extends JDialog {
     private String creditCardNumber;
     private UICommand chargeUICommand;
 
-    public ChargeDialog(CreditCardMainFrame parent, String creditCardNumber, AccountService accountService) {
+    public ChargeDialog(CreditCardMainFrame parent, String creditCardNumber, UICommand<CreditCardUIBean> uiCommand) {
 
         super(parent);
         parentframe=parent;
         this.creditCardNumber =creditCardNumber;
-        chargeUICommand = new ChargeUICommand(accountService);
+        chargeUICommand = uiCommand;
 
         setTitle("Charge");
         setModal(true);
