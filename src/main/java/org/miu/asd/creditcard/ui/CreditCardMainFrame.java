@@ -12,12 +12,12 @@ public class CreditCardMainFrame extends FrameTemplate implements CreditCardUICo
     private UICommand<CreditCardUIBean> billReportCommand;
     private UICommand<CreditCardUIBean> chargeCreditCardCommand;
 
-    public CreditCardMainFrame(FrameConfig frameConfig) {
+    CreditCardMainFrame(FrameConfig frameConfig) {
         super(frameConfig);
         constructFrame(NO_TITLE);
     }
 
-    public CreditCardMainFrame(FrameConfig frameConfig, String title) {
+     CreditCardMainFrame(FrameConfig frameConfig, String title) {
         super(frameConfig);
         constructFrame(title);
     }
