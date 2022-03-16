@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.Map;
 
-public abstract class FrameTemplate extends JFrame {
+public abstract class FrameTemplate extends JFrame implements UICommandController{
     JPanel JPanel1 = new JPanel();
 
     protected FrameConfig<Account> frameConfig;
@@ -20,10 +20,11 @@ public abstract class FrameTemplate extends JFrame {
 
     public static final String NO_TITLE = "No Title.";
 
-    private AccountService accountService;
+    private UICommand<UIBean> frameUpdateCommand;
+    private UICommand<UIBean> depositCommand;
+    private UICommand<UIBean> withdrawCommand;
 
-   public FrameTemplate(AccountService accountService,FrameConfig frameConfig){
-        this.accountService = accountService;
+   public FrameTemplate(FrameConfig frameConfig){
         this.frameConfig = frameConfig;
         addWindowListener(new SymWindow());
     }
@@ -88,17 +89,16 @@ public abstract class FrameTemplate extends JFrame {
         System.exit(0);
     };
 
-    public AccountService getAccountService() {
-        return accountService;
-    }
-
     public void updateContent() {
         if (model.getRowCount() > 0) {
             for (int i = model.getRowCount() - 1; i > -1; i--) {
                 model.removeRow(i);
             }
         }
-        accountService.getAllAccounts().forEach(this::tableRow);
+
+        UIBean bean = new UIBean();
+        frameUpdateCommand.execute(bean);
+        bean.getAllAccounts().forEach(this::tableRow);
     }
 
     private void tableRow(Account account){
@@ -144,6 +144,30 @@ public abstract class FrameTemplate extends JFrame {
             this.exitApplication();
         } catch (Exception e) {
         }
+    }
+
+    @Override
+    public void setFrameUpdateCommand(UICommand<UIBean> frameUpdateCommand) {
+        this.frameUpdateCommand = frameUpdateCommand;
+    }
+
+    @Override
+    public void setDepositCommand(UICommand<UIBean> depositUICommand) {
+        this.depositCommand = depositUICommand;
+    }
+
+    @Override
+    public void setWithdrawCommand(UICommand<UIBean> withdrawUICommand) {
+        this.withdrawCommand = withdrawUICommand;
+    }
+
+
+    protected UICommand<UIBean> getDepositCommand() {
+        return depositCommand;
+    }
+
+    protected UICommand<UIBean> getWithdrawCommand() {
+        return withdrawCommand;
     }
 
     public static class ButtonConfig {

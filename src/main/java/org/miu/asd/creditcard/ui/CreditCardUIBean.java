@@ -2,9 +2,12 @@ package org.miu.asd.creditcard.ui;
 
 import org.joda.time.LocalDate;
 import org.miu.asd.creditcard.domain.CreditCardType;
+import org.miu.asd.framework.domain.Account;
 import org.miu.asd.framework.domain.Customer;
 import org.miu.asd.framework.ui.UIBean;
 import org.miu.asd.framework.ui.UICommandBean;
+
+import java.util.Collection;
 
 public class CreditCardUIBean implements UICommandBean {
     private UIBean uiBean = new UIBean();
@@ -82,5 +85,15 @@ public class CreditCardUIBean implements UICommandBean {
     @Override
     public void setAmount(Double amount) {
         getUiBean().setAmount(amount);
+    }
+
+    @Override
+    public Collection<Account> getAllAccounts() {
+        return getUiBean().getAllAccounts();
+    }
+
+    @Override
+    public void setAllAccounts(Collection<Account> accounts) {
+        getUiBean().setAllAccounts(accounts);
     }
 }
