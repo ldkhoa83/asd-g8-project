@@ -15,6 +15,7 @@ public class BankMainFrameBuilder {
     private static UICommand<UIBean> depositUICommand = new DepositUICommand(accountService);
     private static UICommand<UIBean> withdrawUICommand = new WithdrawUICommand(accountService);
     private static UICommand<UIBean> addInterestUICommand = new AddInterestUICommand(accountService);
+    private static UICommand<UIBean> generateAllAccReportsUICommand = new ReportCreationUICommand(accountService);
     private static String frameTitle = FrameTemplate.NO_TITLE;
 
     private BankMainFrameBuilder(){}
@@ -53,6 +54,11 @@ public class BankMainFrameBuilder {
         return INSTANCE;
     }
 
+    public BankMainFrameBuilder withAllAccReportCommand(UICommand<UIBean> allAccReportCommand){
+        generateAllAccReportsUICommand = allAccReportCommand;
+        return INSTANCE;
+    }
+
     public BankMainFrameBuilder withMainFrameConfig(BankMainFrameConfig bankMainFrameConfig){
         mainFrameConfig = bankMainFrameConfig;
         return INSTANCE;
@@ -70,6 +76,7 @@ public class BankMainFrameBuilder {
         bankMainFrame.setDepositCommand(depositUICommand);
         bankMainFrame.setWithdrawCommand(withdrawUICommand);
         bankMainFrame.setAddInterestCommand(addInterestUICommand);
+        bankMainFrame.setAllAccReportCommand(generateAllAccReportsUICommand);
 
         return bankMainFrame;
     }

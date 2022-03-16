@@ -115,9 +115,9 @@ public class AddPersonalAccountDialog extends JDialog
 
 			String accountType = "";
 			if (JRadioButton_Chk.isSelected())
-				accountType="Ch";
+				accountType= AccountType.CHECKING.getName();
 			else
-				accountType="S";
+				accountType=AccountType.SAVING.getName();
 			bean.setAccountType(accountType);
 			addPersonalAccountUICommand.execute(bean);
 			parent.updateContent();

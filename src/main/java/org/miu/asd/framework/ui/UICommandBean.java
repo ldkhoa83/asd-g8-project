@@ -25,4 +25,8 @@ public interface UICommandBean {
     Collection<Account> getAllAccounts();
 
     void setAllAccounts(Collection<Account> accounts);
+
+    String getMonthlyBillReport();
+
+    String getAllAccountsReport();
 }

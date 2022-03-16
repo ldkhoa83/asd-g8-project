@@ -7,6 +7,7 @@ import org.joda.time.Period;
 import org.miu.asd.framework.dao.AccountDAO;
 import org.miu.asd.framework.domain.*;
 
+import java.io.StringWriter;
 import java.util.Collection;
 import java.util.List;
 
@@ -65,6 +66,13 @@ public abstract class BasicAccountService implements Observable, AccountService 
         Interval lastMonth = new Interval(Period.months(1), Instant.now());
 
         return account.generateReport(lastMonth);
+    }
+
+    public String generateAllAccountReports(){
+        StringWriter sb = new StringWriter();
+        getAllAccounts().stream().forEach(account ->
+                sb.append(account.generateReport(new Interval(Period.years(1), Instant.now()))).append("\n"));
+        return sb.toString();
     }
 
     public AccountEventType getAccountEventType() {

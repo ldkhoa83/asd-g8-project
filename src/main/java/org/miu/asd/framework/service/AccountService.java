@@ -25,5 +25,7 @@ public interface AccountService {
 
     String generateMonthlyBillReport(String AccountID);
 
+    String generateAllAccountReports();
+
     void addInterestForAllAccounts();
 }

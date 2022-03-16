@@ -1,5 +1,8 @@
 package org.miu.asd.banking.service;
 
+import org.joda.time.Instant;
+import org.joda.time.Interval;
+import org.joda.time.Period;
 import org.miu.asd.banking.domain.EmailSender;
 import org.miu.asd.framework.dao.AccountDAO;
 import org.miu.asd.framework.domain.*;
@@ -38,6 +41,8 @@ public class BankAccountService extends BasicAccountService implements Observabl
     protected AccountEntry performDepositOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent) {
         return account.deposit(amountOfMoney, accountEvent);
     }
+
+
 
     @Override
     public void registerObserver(Observer observer) {

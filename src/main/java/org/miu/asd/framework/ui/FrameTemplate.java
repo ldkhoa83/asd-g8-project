@@ -1,7 +1,6 @@
 package org.miu.asd.framework.ui;
 
 import org.miu.asd.framework.domain.Account;
-import org.miu.asd.framework.service.AccountService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

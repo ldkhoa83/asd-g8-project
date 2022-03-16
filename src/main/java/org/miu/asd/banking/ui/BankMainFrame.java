@@ -1,6 +1,5 @@
 package org.miu.asd.banking.ui;
 
-import org.miu.asd.creditcard.ui.CreditCardUIBean;
 import org.miu.asd.framework.ui.*;
 
 import javax.swing.*;
@@ -12,6 +11,7 @@ public class BankMainFrame extends FrameTemplate implements BankUICommandControl
 
     private UICommand<UIBean> addAccountCommand;
     private UICommand<UIBean> addInterestUICommand;
+    private UICommand<UIBean> reportCreationUICommand;
 
     private final ActionListener personalAccount = (actionEvent) -> {
         openDialog(new AddPersonalAccountDialog(this,addAccountCommand));
@@ -19,6 +19,10 @@ public class BankMainFrame extends FrameTemplate implements BankUICommandControl
 
     private final ActionListener companyAccount = (actionEvent) -> {
         openDialog(new AddCompanyAccountDialog(this,addAccountCommand));
+    };
+
+    private final ActionListener allAccountsReport = (actionEvent) -> {
+        openDialog(new ReportDialog(this, reportCreationUICommand));
     };
 
     private final ActionListener deposit = (actionEvent) -> {
@@ -64,9 +68,10 @@ public class BankMainFrame extends FrameTemplate implements BankUICommandControl
         Map<String, ButtonConfig> buttons = new HashMap<>();
         buttons.put("Add personal account",new ButtonConfig(personalAccount,24,20,192,33));
         buttons.put("Add company account",new ButtonConfig(companyAccount,240,20,192,33));
-        buttons.put("Withdraw",new ButtonConfig(withdraw,448,20,106,33));
+        buttons.put("All Accounts Report",new ButtonConfig(allAccountsReport,460,20,192,33));
         buttons.put("Deposit",new ButtonConfig(deposit,468,104,96,33));
-        buttons.put("Add Interest",new ButtonConfig(addInterest,468,164,96,33));
+        buttons.put("Withdraw",new ButtonConfig(withdraw,468,150,106,33));
+        buttons.put("Add Interest",new ButtonConfig(addInterest,468,190,96,33));
         buttons.put("Exit",new ButtonConfig(getExitEventHandler(),468,248,96,31));
         return buttons;
     }
@@ -79,5 +84,10 @@ public class BankMainFrame extends FrameTemplate implements BankUICommandControl
     @Override
     public void setAddInterestCommand(UICommand<UIBean> addInterestCommand) {
         this.addInterestUICommand = addInterestCommand;
+    }
+
+    @Override
+    public void setAllAccReportCommand(UICommand<UIBean> allAccReportCommand) {
+        this.reportCreationUICommand = allAccReportCommand;
     }
 }

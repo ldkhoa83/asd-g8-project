@@ -19,6 +19,11 @@ public class CreditCardUIBean implements UICommandBean {
         return monthlyBillReport;
     }
 
+    @Override
+    public String getAllAccountsReport() {
+        return uiBean.getAllAccountsReport();
+    }
+
     public void setMonthlyBillReport(String monthlyBillReport) {
         this.monthlyBillReport = monthlyBillReport;
     }

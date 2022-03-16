@@ -12,6 +12,7 @@ public class UIBean implements UICommandBean{
     private Customer customer;
     private Double amount;
     private Collection<Account> accounts;
+    private String allAccountsReport;
 
     public UIBean() {
         this.accountType = "";
@@ -60,5 +61,19 @@ public class UIBean implements UICommandBean{
     @Override
     public void setAllAccounts(Collection<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    @Override
+    public String getMonthlyBillReport() {
+        return null;
+    }
+
+    public void setAllAccountsReport(String allAccountsReport){
+        this.allAccountsReport = allAccountsReport;
+    }
+
+    @Override
+    public String getAllAccountsReport() {
+        return allAccountsReport;
     }
 }

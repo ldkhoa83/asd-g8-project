@@ -15,7 +15,7 @@ public class AddAccountUICommand extends UICommand<UIBean> {
 
     @Override
     public void execute(UIBean bean) {
-        AccountFactory accountFactory = bean.getAccountType().equals(AccountType.CHECKING) ? new CheckingAccountFactory() : new SavingAccountFactory();
+        AccountFactory accountFactory = bean.getAccountType().equals(AccountType.CHECKING.getName()) ? new CheckingAccountFactory() : new SavingAccountFactory();
         getAccountService().createAccount(bean.getAccountNumber(),bean.getCustomer(),accountFactory);
     }
 }
