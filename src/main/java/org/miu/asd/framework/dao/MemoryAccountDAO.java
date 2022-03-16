@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class MemoryAccountDAO implements AccountDAO {
-    Collection<Account> accountlist = new ArrayList<>();
+    Collection<Account> accountList = new ArrayList<>();
 
     public Collection<Account> getAccounts() {
-        return accountlist;
+        return accountList;
     }
     @Override
     public Account loadAccount(String accountNumber) {
-        for (Account account : accountlist) {
+        for (Account account : accountList) {
             if (account.getAccountNumber().equals(accountNumber)) {
                 return account;
             }
@@ -23,20 +23,20 @@ public class MemoryAccountDAO implements AccountDAO {
 
     @Override
     public void updateAccount(Account account) {
-        Account accountexist = loadAccount(account.getAccountNumber());
-        if (accountexist != null) {
-            accountlist.remove(accountexist); // remove the old
-            accountlist.add(account); // add the new
+        Account accountExist = loadAccount(account.getAccountNumber());
+        if (accountExist != null) {
+            accountList.remove(accountExist); // remove the old
+            accountList.add(account); // add the new
         }
     }
 
     @Override
     public void saveAccount(Account account) {
-        accountlist.add(account); // add the new
+        accountList.add(account); // add the new
     }
 
     @Override
     public Collection<Account> loadAllAccounts() {
-        return accountlist;
+        return accountList;
     }
 }
