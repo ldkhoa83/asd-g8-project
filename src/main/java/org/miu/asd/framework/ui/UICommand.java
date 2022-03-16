@@ -4,16 +4,16 @@ import org.miu.asd.framework.service.AccountService;
 
 import java.awt.event.ActionListener;
 
-public abstract class UICommand {
-    private AccountService accountService;
+public abstract class UICommand<T extends AccountService> {
+    private T accountService;
 
-    public UICommand(AccountService accountService){
+    public UICommand(T accountService){
         this.accountService = accountService;
     }
 
     public abstract void execute(UIBean bean);
 
-    protected AccountService getAccountService(){
+    protected T getAccountService(){
         return accountService;
     }
 }

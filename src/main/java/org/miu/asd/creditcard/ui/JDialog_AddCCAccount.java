@@ -3,23 +3,20 @@ package org.miu.asd.creditcard.ui;
 		A basic implementation of the JDialog class.
 */
 
-import org.miu.asd.creditcard.domain.CreditCardAccount;
+import org.miu.asd.creditcard.domain.CreditCardType;
 import org.miu.asd.framework.domain.Customer;
 import org.miu.asd.framework.service.AccountService;
-import org.miu.asd.framework.ui.UIBean;
 import org.miu.asd.framework.ui.UICommand;
 
 import javax.swing.*;
 
 public class JDialog_AddCCAccount extends JDialog
 {
-    private CreditCardMainFrame parentframe;
-	private UICommand addCCAccountUICommand;
+	private UICommand<AccountService> addCCAccountUICommand;
     
 	public JDialog_AddCCAccount(CreditCardMainFrame parent, AccountService accountService)
 	{
 		super(parent);
-		parentframe=parent;
 		addCCAccountUICommand = new AddCCAccountUICommand(accountService);
 		
 		setTitle("Add credit card account");
@@ -114,11 +111,11 @@ public class JDialog_AddCCAccount extends JDialog
 
 			String accountType = "";
 			if (JRadioButton_Gold.isSelected())
-				accountType="Gold";
+				accountType= CreditCardType.GOLD.getName();
 			else if (JRadioButton_Silver.isSelected())
-				accountType="Silver";
+				accountType=CreditCardType.SILVER.getName();
 			else
-				accountType="Bronze";
+				accountType=CreditCardType.BRONZE.getName();
 
 			CreditCardUIBean bean = new CreditCardUIBean();
 			bean.setAccountNumber(ccNum);
@@ -127,7 +124,7 @@ public class JDialog_AddCCAccount extends JDialog
 			bean.setCustomer(customer);
 			bean.setExpDate(expDate);
 			addCCAccountUICommand.execute(bean);
-			parentframe.updateContent();
+			parent.updateContent();
 			dispose();
 		});
 		JButton_Cancel.addActionListener(e -> dispose());

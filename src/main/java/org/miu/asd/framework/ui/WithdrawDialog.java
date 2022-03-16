@@ -1,5 +1,6 @@
 package org.miu.asd.framework.ui;
 
+import org.miu.asd.framework.domain.Customer;
 import org.miu.asd.framework.service.AccountService;
 
 import javax.swing.*;
@@ -10,15 +11,11 @@ import java.awt.*;
 public class WithdrawDialog extends JDialog
 {
    
-    private FrameTemplate parentframe;
-    private String accnr;
 	private UICommand withdrawUICommand;
 
-	public WithdrawDialog(FrameTemplate parent, String aaccnr, AccountService accountService)
+	public WithdrawDialog(FrameTemplate parent, String accountNumber, String customerName, AccountService accountService)
 	{
 		super(parent);
-		parentframe=parent;
-		accnr=aaccnr;
 		withdrawUICommand = new WithdrawUICommand(accountService);
 		
 		setTitle("Withdraw");
@@ -48,15 +45,17 @@ public class WithdrawDialog extends JDialog
 		getContentPane().add(JButton_Calcel);
 		JButton_Calcel.setBounds(156,84,84,24);
 		
-	    JTextField_NAME.setText(accnr);
+	    JTextField_NAME.setText(accountNumber);
 	
 		
 		JButton_OK.addActionListener(e -> {
 			UIBean bean = new UIBean();
 			bean.setAmount(Double.valueOf(JTextField_AMT.getText()));
-			bean.setAccountNumber(aaccnr);
+			bean.setAccountNumber(accountNumber);
+			Customer customer = new Customer(customerName,"","","","");
+			bean.setCustomer(customer);
 			withdrawUICommand.execute(bean);
-			parentframe.updateContent();
+			parent.updateContent();
 			dispose();
 		});
 		JButton_Calcel.addActionListener(e -> dispose());

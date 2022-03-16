@@ -10,19 +10,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.Map;
 
-public abstract class FrameTemplate extends JFrame {
+public abstract class FrameTemplate<T extends AccountService> extends JFrame {
     JPanel JPanel1 = new JPanel();
 
     protected FrameConfig frameConfig;
-    boolean newaccount = false;
     private DefaultTableModel model;
     protected JTable JTable1;
     private JScrollPane JScrollPane1;
-    private Object rowdata[];
 
-    private AccountService accountService;
+    private T accountService;
 
-    public FrameTemplate(AccountService accountService,FrameConfig frameConfig){
+    public FrameTemplate(T accountService,FrameConfig frameConfig){
         this.accountService = accountService;
         this.frameConfig = frameConfig;
         addWindowListener(new SymWindow());
@@ -54,8 +52,6 @@ public abstract class FrameTemplate extends JFrame {
         for(String columnName : frameConfig.getColumnsOfContentGrid()){
             model.addColumn(columnName);
         }
-        rowdata = new Object[frameConfig.getColumnsOfContentGrid().size()];
-
         JScrollPane1.setBounds(12,92,frameConfig.getContentScrollPanelWidth(),frameConfig.getContentScrollPanelHeight());
         JPanel1.add(JScrollPane1);
         JScrollPane1.getViewport().add(JTable1);
@@ -90,7 +86,7 @@ public abstract class FrameTemplate extends JFrame {
         System.exit(0);
     };
 
-    public AccountService getAccountService() {
+    public T getAccountService() {
         return accountService;
     }
 
@@ -100,7 +96,7 @@ public abstract class FrameTemplate extends JFrame {
                 model.removeRow(i);
             }
         }
-//        accountService.getAllAccounts().forEach(this::tableRow);
+        accountService.getAllAccounts().forEach(this::tableRow);
     }
 
     private void tableRow(Account account){

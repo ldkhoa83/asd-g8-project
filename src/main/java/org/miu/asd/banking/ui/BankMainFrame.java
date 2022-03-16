@@ -1,6 +1,6 @@
 package org.miu.asd.banking.ui;
 
-import org.miu.asd.framework.service.AccountService;
+import org.miu.asd.banking.service.BankAccountService;
 import org.miu.asd.framework.ui.*;
 
 import javax.swing.*;
@@ -8,40 +8,41 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BankMainFrame extends FrameTemplate{
+public class BankMainFrame extends FrameTemplate<BankAccountService> {
 
     private final ActionListener personalAccount = (actionEvent) -> {
         openDialog(new AddPersonalAccDialog(this,getAccountService()));
     };
     private final ActionListener companyAccount = (actionEvent) -> {
-        openDialog(new AddCompanyAccountDialog(this,getAccountService()));
+        openDialog(new AddCompanyAccountDialog(this,new AddCompAccountUICommand(getAccountService())));
     };
     private final ActionListener deposit = (actionEvent) -> {
         int selection = getSelectionIndex();
         if (selection >= 0) {
             String accnr = (String) getModel().getValueAt(selection, frameConfig.getAccountNumberColumnIndex());
-            openDialog(new DepositDialog(this, accnr, getAccountService()),430, 15, 275, 140);
+            String customerName = (String) getModel().getValueAt(selection, frameConfig.getCustomerNameColumnIndex());
+            openDialog(new DepositDialog(this, accnr, customerName, getAccountService()),430, 15, 275, 140);
         }
     };
     private final ActionListener addInterest = (actionEvent) -> {
-        //Add interestCommand
         JOptionPane.showMessageDialog(null, "Add interest to all accounts", "Add interest to all accounts", JOptionPane.WARNING_MESSAGE);
     };
     private final ActionListener withdraw = (actionEvent) -> {
         int selection = getSelectionIndex();
         if (selection >= 0){
-            String accnr = (String) getModel().getValueAt(selection, frameConfig.getAccountNumberColumnIndex());
-            openDialog(new WithdrawDialog(this, accnr, getAccountService()),430, 15, 275, 140);
+            String accountNumber = (String) getModel().getValueAt(selection, frameConfig.getAccountNumberColumnIndex());
+            String customerName = (String) getModel().getValueAt(selection, frameConfig.getCustomerNameColumnIndex());
+            openDialog(new WithdrawDialog(this, accountNumber, customerName, getAccountService()),430, 15, 275, 140);
         }
     };
 
 
-    public BankMainFrame(AccountService accountService, FrameConfig frameConfig) {
+    public BankMainFrame(BankAccountService accountService, FrameConfig frameConfig) {
         super(accountService, frameConfig);
         init("No Title");
     }
 
-    public BankMainFrame(AccountService accountService, FrameConfig frameConfig, String title){
+    public BankMainFrame(BankAccountService accountService, FrameConfig frameConfig, String title){
         super(accountService, frameConfig);
         init(title);
     }

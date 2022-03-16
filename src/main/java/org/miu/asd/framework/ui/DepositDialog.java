@@ -1,5 +1,7 @@
 package org.miu.asd.framework.ui;
 
+import org.miu.asd.framework.domain.Account;
+import org.miu.asd.framework.domain.Customer;
 import org.miu.asd.framework.service.AccountService;
 
 import javax.swing.*;
@@ -7,15 +9,11 @@ import java.awt.*;
 
 public class DepositDialog extends JDialog
 {
-    private FrameTemplate parentframe;
-    private String accnr;
 	private UICommand depositUICommand;
     
-	public DepositDialog(FrameTemplate parent, String aaccnr, AccountService accountService)
+	public DepositDialog(FrameTemplate parent, String accountNumber, String customerName, AccountService accountService)
 	{
 		super(parent);
-		parentframe=parent;
-		accnr=aaccnr;
 		depositUICommand = new DepositUICommand(accountService);
 
 		setTitle("Deposit");
@@ -44,14 +42,16 @@ public class DepositDialog extends JDialog
 		JButton_Cancel.setBounds(156,84,84,24);
 		getContentPane().add(JTextField_Deposit);
 		JTextField_Deposit.setBounds(84,48,144,24);
-	    JTextField_NAME.setText(accnr);
+	    JTextField_NAME.setText(accountNumber);
 	    
 		JButton_OK.addActionListener(e -> {
 			UIBean bean = new UIBean();
 			bean.setAmount(Double.valueOf(JTextField_Deposit.getText()));
-			bean.setAccountNumber(aaccnr);
+			bean.setAccountNumber(accountNumber);
+			Customer customer = new Customer(customerName,"","","","");
+			bean.setCustomer(customer);
 			depositUICommand.execute(bean);
-			parentframe.updateContent();
+			parent.updateContent();
 			dispose();
 		});
 		JButton_Cancel.addActionListener(e -> dispose());

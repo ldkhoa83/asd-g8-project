@@ -57,4 +57,9 @@ public class CreditCardUIConfig implements FrameConfig {
     public Object[] buildRow(Account account) {
         return new Object[0];
     }
+
+    @Override
+    public int getCustomerNameColumnIndex() {
+        return 0;
+    }
 }

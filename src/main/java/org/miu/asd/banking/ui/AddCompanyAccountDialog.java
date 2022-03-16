@@ -1,6 +1,7 @@
 package org.miu.asd.banking.ui;
 
 import org.miu.asd.banking.domain.Company;
+import org.miu.asd.banking.service.BankAccountService;
 import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.FrameTemplate;
 import org.miu.asd.framework.ui.UIBean;
@@ -13,14 +14,12 @@ import java.awt.*;
 
 public class AddCompanyAccountDialog extends JDialog
 {
-    private FrameTemplate parentframe;
-	private UICommand addCompAccountUICommand;
+	private UICommand<BankAccountService> addCompAccountUICommand;
 
-	public AddCompanyAccountDialog(FrameTemplate parent, AccountService accountService)
+	public AddCompanyAccountDialog(FrameTemplate parent, UICommand<BankAccountService> addAccountUICommand)
 	{
 		super(parent);
-		parentframe=parent;
-		addCompAccountUICommand = new AddCompAccountUICommand(accountService);
+		addCompAccountUICommand = addAccountUICommand;
 		
 		setTitle("Add company account");
 		setModal(true);
@@ -92,7 +91,6 @@ public class AddCompanyAccountDialog extends JDialog
 		getContentPane().add(JTextField_ACNR);
 		JTextField_ACNR.setBounds(120,72,156,20);
 
-		//{{REGISTER_LISTENERS
 		JButton_OK.addActionListener(e -> {
 			UIBean bean = new UIBean();
 
@@ -107,22 +105,20 @@ public class AddCompanyAccountDialog extends JDialog
 			bean.setCustomer(new Company(name,street,city,state,zip,numOfEmployees));
 			bean.setAccountNumber(accNum);
 
-			String accountType = "";
+			String accountType;
 			if (JRadioButton_Chk.isSelected())
-				accountType="Ch";
+				accountType=AccountType.CHECKING.getName();
 			else
-				accountType="S";
+				accountType= AccountType.SAVING.getName();
 			bean.setAccountType(accountType);
 			addCompAccountUICommand.execute(bean);
 			parent.updateContent();
 			dispose();
 		});
 		JButton_Calcel.addActionListener(e -> dispose());
-		//}}
 	}
 
 
-	//{{DECLARE_CONTROLS
 	JRadioButton JRadioButton_Chk = new JRadioButton();
 	JRadioButton JRadioButton_Sav = new JRadioButton();
 	JLabel JLabel1 = new JLabel();
@@ -143,7 +139,6 @@ public class AddCompanyAccountDialog extends JDialog
 	JButton JButton_Calcel = new JButton();
 	JLabel JLabel8 = new JLabel();
 	JTextField JTextField_ACNR = new JTextField();
-	//}}
 
 
 }

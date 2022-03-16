@@ -4,7 +4,7 @@ import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.UIBean;
 import org.miu.asd.framework.ui.UICommand;
 
-public class AddCCAccountUICommand extends UICommand {
+public class AddCCAccountUICommand extends UICommand<AccountService> {
     public AddCCAccountUICommand(AccountService accountService) {
         super(accountService);
     }

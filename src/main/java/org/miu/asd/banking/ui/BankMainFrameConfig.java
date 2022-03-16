@@ -44,6 +44,11 @@ public class BankMainFrameConfig implements FrameConfig {
     }
 
     @Override
+    public int getCustomerNameColumnIndex() {
+        return 1;
+    }
+
+    @Override
     public int getAccountNumberColumnIndex() {
         return 0;
     }
