@@ -12,6 +12,9 @@ import java.util.List;
 
 public abstract class BasicAccountService implements Observable, AccountService {
     private AccountDAO accountDAO;
+    protected AccountEventType accountEventType;
+    private Account currentAccount;
+    private double changedAmount;
     private List<Observer> observers;
     public BasicAccountService(AccountDAO accountDao) {
         this.accountDAO = accountDao;
@@ -69,6 +72,11 @@ public abstract class BasicAccountService implements Observable, AccountService 
 
         return account.generateReport(lastMonth);
     }
+
+    public double getChangedAmount() {
+        return changedAmount;
+    }
+
     @Override
     public void registerObserver(Observer observer) {
         this.observers.add(observer);
@@ -85,6 +93,15 @@ public abstract class BasicAccountService implements Observable, AccountService 
             ob.update();
         }
     }
+
+    public AccountEventType getAccountEventType() {
+        return accountEventType;
+    }
+
+    public Account getCurrentAccount(){
+        return currentAccount;
+    }
+
     protected abstract AccountEntry performWithdrawOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent);
 
     protected abstract AccountEntry performDepositOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent);

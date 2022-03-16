@@ -9,6 +9,7 @@ public class Customer {
     private String city;
     private String state;
     private String zipCode;
+    private String email;
 
     private Collection<Account> accounts = new HashSet<>();
 
@@ -30,6 +31,10 @@ public class Customer {
 
     public String getStreet() {
         return street;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getCity() {
