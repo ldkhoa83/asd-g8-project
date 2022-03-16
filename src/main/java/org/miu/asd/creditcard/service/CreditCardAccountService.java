@@ -21,4 +21,9 @@ public class CreditCardAccountService extends BasicAccountService {
     protected AccountEntry performDepositOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent) {
         return account.withdraw(amountOfMoney,accountEvent);
     }
+
+    @Override
+    public void addInterestForAllAccounts() {
+
+    }
 }

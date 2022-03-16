@@ -17,8 +17,6 @@ public interface AccountService {
 
     void withdraw(String accountID, Double amountOfMoney, AccountEvent accountEvent);
 
-    void addInterestForAllAccounts();
-
     Collection<Account> getAllAccounts();
 
     default void charge(String accountID, Double amountOfMoney, AccountEvent accountEvent){
@@ -26,4 +24,6 @@ public interface AccountService {
     }
 
     String generateMonthlyBillReport(String AccountID);
+
+    void addInterestForAllAccounts();
 }

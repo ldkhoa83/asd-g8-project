@@ -12,8 +12,12 @@ public class BankAccountService extends BasicAccountService {
         super(accountDao);
     }
 
-    protected void addInterestForAllAccounts(Account account, Double amountOfMoney, AccountEvent accountEvent) {
-        account.withdraw(amountOfMoney,accountEvent);
+    public void addInterestForAllAccounts() {
+        getAccountDAO().loadAllAccounts().forEach( a -> {
+            AccountEntry accountEntry = a.addInterest();
+            // accountDAO.updateAccount(account);
+            // notifyObservers();
+        });
     }
 
     protected AccountEntry performWithdrawOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent) {

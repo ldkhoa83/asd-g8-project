@@ -42,7 +42,7 @@ public abstract class BasicAccountService implements Observable, AccountService 
         Account account = accountDAO.loadAccount(accountID);
         AccountEntry accountEntry = performDepositOnAccount(account,amountOfMoney,accountEvent);
         accountDAO.updateAccount(account);
-        notifyObservers();
+        //notifyObservers();
     }
 
     @Override
@@ -50,16 +50,7 @@ public abstract class BasicAccountService implements Observable, AccountService 
         Account account = accountDAO.loadAccount(accountID);
         AccountEntry accountEntry = performWithdrawOnAccount(account,amountOfMoney,accountEvent);
         accountDAO.updateAccount(account);
-        notifyObservers();
-    }
-
-    @Override
-    public void addInterestForAllAccounts() {
-        accountDAO.loadAllAccounts().forEach( account -> {
-            AccountEntry accountEntry = account.addInterest();
-            // accountDAO.updateAccount(account);
-            notifyObservers();
-        });
+        //notifyObservers();
     }
 
     protected AccountDAO getAccountDAO(){
