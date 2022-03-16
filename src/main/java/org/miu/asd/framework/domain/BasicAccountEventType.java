@@ -18,6 +18,11 @@ public enum BasicAccountEventType implements AccountEventType{
         public String getDescription() {
             return "Withdraw";
         }
-    };
+    },
+    INTEREST{
+        @Override
+        public String getDescription(){ return "Interest";}
+    }
+
 
 }
