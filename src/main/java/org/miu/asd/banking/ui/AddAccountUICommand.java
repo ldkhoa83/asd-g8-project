@@ -1,0 +1,20 @@
+package org.miu.asd.banking.ui;
+
+import org.miu.asd.banking.domain.CheckingAccountFactory;
+import org.miu.asd.banking.domain.SavingAccountFactory;
+import org.miu.asd.framework.domain.AccountFactory;
+import org.miu.asd.framework.service.AccountService;
+import org.miu.asd.framework.ui.UICommand;
+import org.miu.asd.framework.ui.UICommandBean;
+
+public class AddAccountUICommand extends UICommand<UICommandBean> {
+    public AddAccountUICommand(AccountService accountService) {
+        super(accountService);
+    }
+
+    @Override
+    public void execute(UICommandBean bean) {
+        AccountFactory accountFactory = bean.getAccountType().equals(AccountType.CHECKING) ? new CheckingAccountFactory() : new SavingAccountFactory();
+        getAccountService().createAccount(bean.getAccountNumber(),bean.getCustomer(),accountFactory);
+    }
+}

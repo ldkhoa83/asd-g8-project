@@ -14,12 +14,12 @@ public class BankAccountService extends BasicAccountService {
 
 
     @Override
-    protected AccountEntry performWithdraw(Account account, Double amountOfMoney, AccountEvent accountEvent) {
+    protected AccountEntry performWithdrawOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent) {
         return account.withdraw(amountOfMoney,accountEvent);
     }
 
     @Override
-    protected AccountEntry performDeposit(Account account, Double amountOfMoney, AccountEvent accountEvent) {
+    protected AccountEntry performDepositOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent) {
         return account.deposit(amountOfMoney,accountEvent);
     }
 

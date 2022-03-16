@@ -13,7 +13,7 @@ public class NoUICommand extends UICommand {
     }
 
     @Override
-    public void execute(UIBean bean) {
+    public void execute(UICommandBean bean) {
 
     }
 

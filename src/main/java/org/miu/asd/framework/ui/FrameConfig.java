@@ -4,7 +4,7 @@ import org.miu.asd.framework.domain.Account;
 
 import java.util.List;
 
-public interface FrameConfig {
+public interface FrameConfig<T extends Account> {
     int getFrameHeight();
 
     int getFrameWith();
@@ -21,7 +21,7 @@ public interface FrameConfig {
 
     int getContentGridHeight();
 
-    Object[] buildRow(Account account);
+    Object[] buildRow(T account);
 
     int getCustomerNameColumnIndex();
 }

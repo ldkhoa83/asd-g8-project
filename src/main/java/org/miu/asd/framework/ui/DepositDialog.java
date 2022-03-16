@@ -1,6 +1,5 @@
 package org.miu.asd.framework.ui;
 
-import org.miu.asd.framework.domain.Account;
 import org.miu.asd.framework.domain.Customer;
 import org.miu.asd.framework.service.AccountService;
 
@@ -9,13 +8,17 @@ import java.awt.*;
 
 public class DepositDialog extends JDialog
 {
-	private UICommand depositUICommand;
+	private UICommand<UICommandBean> depositUICommand;
     
-	public DepositDialog(FrameTemplate parent, String accountNumber, String customerName, AccountService accountService)
+	public DepositDialog(FrameTemplate parent, String accountNumber, String customerName, UICommand uiCommand)
 	{
 		super(parent);
-		depositUICommand = new DepositUICommand(accountService);
+		depositUICommand = uiCommand;
 
+		initDialog(parent, accountNumber, customerName);
+	}
+
+	private void initDialog(FrameTemplate parent, String accountNumber, String customerName) {
 		setTitle("Deposit");
 		setModal(true);
 		getContentPane().setLayout(null);
@@ -42,8 +45,8 @@ public class DepositDialog extends JDialog
 		JButton_Cancel.setBounds(156,84,84,24);
 		getContentPane().add(JTextField_Deposit);
 		JTextField_Deposit.setBounds(84,48,144,24);
-	    JTextField_NAME.setText(accountNumber);
-	    
+		JTextField_NAME.setText(accountNumber);
+
 		JButton_OK.addActionListener(e -> {
 			UIBean bean = new UIBean();
 			bean.setAmount(Double.valueOf(JTextField_Deposit.getText()));
@@ -58,14 +61,11 @@ public class DepositDialog extends JDialog
 	}
 
 
-	//{{DECLARE_CONTROLS
 	JLabel JLabel1 = new JLabel();
 	JLabel JLabel2 = new JLabel();
 	JTextField JTextField_NAME = new JTextField();
 	JButton JButton_OK = new JButton();
 	JButton JButton_Cancel = new JButton();
 	JTextField JTextField_Deposit = new JTextField();
-	//}}
-
 
 }

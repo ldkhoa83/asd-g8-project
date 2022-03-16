@@ -1,4 +1,4 @@
-package org.miu.asd.framework.service;
+package org.miu.asd.framework.domain;
 
 import org.miu.asd.framework.domain.Account;
 import org.miu.asd.framework.domain.Customer;

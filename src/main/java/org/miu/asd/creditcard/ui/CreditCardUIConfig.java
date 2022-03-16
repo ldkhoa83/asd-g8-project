@@ -1,12 +1,12 @@
 package org.miu.asd.creditcard.ui;
 
-import org.miu.asd.framework.domain.Account;
+import org.miu.asd.creditcard.domain.CreditCardAccount;
 import org.miu.asd.framework.ui.FrameConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreditCardUIConfig implements FrameConfig {
+public class CreditCardUIConfig implements FrameConfig<CreditCardAccount> {
     @Override
     public int getFrameHeight() {
         return 310;
@@ -30,7 +30,7 @@ public class CreditCardUIConfig implements FrameConfig {
 
     @Override
     public int getAccountNumberColumnIndex() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -54,8 +54,14 @@ public class CreditCardUIConfig implements FrameConfig {
     }
 
     @Override
-    public Object[] buildRow(Account account) {
-        return new Object[0];
+    public Object[] buildRow(CreditCardAccount account) {
+        Object[] rowdata = new Object[5];
+        rowdata[0] = account.getCustomer().getName();
+        rowdata[1] = account.getAccountNumber();
+        rowdata[2] = account.getExpiredDate();
+        rowdata[3] = account.getCreditCardType().getName();
+        rowdata[4] = account.balance();
+        return rowdata;
     }
 
     @Override

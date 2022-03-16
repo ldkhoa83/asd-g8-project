@@ -3,6 +3,7 @@ package org.miu.asd.framework.domain;
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+import org.joda.time.Period;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -18,11 +19,15 @@ public abstract class Account {
     }
 
     public Double balance(Interval interval) {
-        return null;
+        return accountEntries.stream()
+                .filter(entry -> interval.contains(entry.getWhenRecorded().toDateTime()))
+                .map(AccountEntry::getAmountOfMoney)
+                .reduce((x,y) -> x + y).orElse(0.0);
     }
 
     public Double balance(LocalDate upToDate) {
-        return null;
+        Interval sinceLastYear = new Interval(Period.years(1), upToDate.toDateTimeAtCurrentTime());
+        return balance(sinceLastYear);
     }
 
     public Double balance() {
@@ -45,7 +50,11 @@ public abstract class Account {
         return accountEntry;
     }
 
-    public abstract Report generateReport(Interval interval);
+    protected Collection<AccountEntry> getAccountEntries() {
+        return accountEntries;
+    }
+
+    public abstract String generateReport(Interval interval);
 
     public String getAccountNumber() {
         return accountNumber;

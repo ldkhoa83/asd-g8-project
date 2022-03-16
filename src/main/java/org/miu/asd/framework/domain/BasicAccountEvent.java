@@ -15,16 +15,16 @@ public class BasicAccountEvent implements AccountEvent{
 
     @Override
     public LocalDateTime getWhenOccurred() {
-        return null;
+        return whenOccurred;
     }
 
     @Override
     public String getSourceName() {
-        return null;
+        return sourceName;
     }
 
     @Override
     public AccountEventType getAccountEventType() {
-        return null;
+        return accountEventType;
     }
 }

@@ -10,28 +10,30 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.Map;
 
-public abstract class FrameTemplate<T extends AccountService> extends JFrame {
+public abstract class FrameTemplate extends JFrame {
     JPanel JPanel1 = new JPanel();
 
-    protected FrameConfig frameConfig;
+    protected FrameConfig<Account> frameConfig;
     private DefaultTableModel model;
     protected JTable JTable1;
     private JScrollPane JScrollPane1;
 
-    private T accountService;
+    public static final String NO_TITLE = "No Title.";
 
-    public FrameTemplate(T accountService,FrameConfig frameConfig){
+    private AccountService accountService;
+
+   public FrameTemplate(AccountService accountService,FrameConfig frameConfig){
         this.accountService = accountService;
         this.frameConfig = frameConfig;
         addWindowListener(new SymWindow());
     }
 
-    public abstract void init(String title);
+    public abstract Map<String, ButtonConfig> specifiesButtons();
 
-    protected final void constructFrame(String title, Map<String, ButtonConfig> buttons){
+    public final void constructFrame(String title){
         setupMainPanel(title,frameConfig);
         setupContentGrid(frameConfig);
-        setupButtons(buttons);
+        setupButtons(specifiesButtons());
     }
 
     private void setupButtons(Map<String, ButtonConfig> buttons) {
@@ -44,7 +46,7 @@ public abstract class FrameTemplate<T extends AccountService> extends JFrame {
         }
     }
 
-    private void setupContentGrid(FrameConfig frameConfig) {
+    private void setupContentGrid(FrameConfig<Account> frameConfig) {
         JScrollPane1 = new JScrollPane();
 
         model = new DefaultTableModel();
@@ -58,7 +60,7 @@ public abstract class FrameTemplate<T extends AccountService> extends JFrame {
         JTable1.setBounds(0, 0, frameConfig.getContentGridWith(), frameConfig.getContentGridHeight());
     }
 
-    private void setupMainPanel(String title, FrameConfig frameConfig) {
+    private void setupMainPanel(String title, FrameConfig<Account> frameConfig) {
         setTitle(title);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout(0,0));
@@ -86,7 +88,7 @@ public abstract class FrameTemplate<T extends AccountService> extends JFrame {
         System.exit(0);
     };
 
-    public T getAccountService() {
+    public AccountService getAccountService() {
         return accountService;
     }
 
@@ -134,7 +136,6 @@ public abstract class FrameTemplate<T extends AccountService> extends JFrame {
 
     void MainFrm_windowClosing(WindowEvent event)
     {
-        // to do: code goes here.
         MainFrm_windowClosing_Interaction1(event);
     }
 

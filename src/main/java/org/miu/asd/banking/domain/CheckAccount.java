@@ -11,7 +11,7 @@ public class CheckAccount extends Account {
     }
 
     @Override
-    public BankingReport generateReport(Interval interval) {
+    public String generateReport(Interval interval) {
         return null;
     }
 }

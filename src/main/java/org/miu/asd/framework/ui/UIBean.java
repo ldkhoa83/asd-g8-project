@@ -2,7 +2,7 @@ package org.miu.asd.framework.ui;
 
 import org.miu.asd.framework.domain.Customer;
 
-public class UIBean {
+public class UIBean implements UICommandBean{
     private String accountType;
     private String accountNumber;
     private Customer customer;

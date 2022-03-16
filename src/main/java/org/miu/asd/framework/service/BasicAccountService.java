@@ -1,10 +1,10 @@
 package org.miu.asd.framework.service;
 
+import org.joda.time.Instant;
+import org.joda.time.Interval;
+import org.joda.time.Period;
 import org.miu.asd.framework.dao.AccountDAO;
-import org.miu.asd.framework.domain.Account;
-import org.miu.asd.framework.domain.AccountEntry;
-import org.miu.asd.framework.domain.AccountEvent;
-import org.miu.asd.framework.domain.Customer;
+import org.miu.asd.framework.domain.*;
 
 import java.util.Collection;
 import java.util.Observable;
@@ -36,7 +36,7 @@ public abstract class BasicAccountService extends Observable implements AccountS
     @Override
     public void deposit(String accountID, Double amountOfMoney, AccountEvent accountEvent) {
         Account account = accountDAO.loadAccount(accountID);
-        AccountEntry accountEntry = performDeposit(account,amountOfMoney,accountEvent);
+        AccountEntry accountEntry = performDepositOnAccount(account,amountOfMoney,accountEvent);
         accountDAO.updateAccount(account);
         notifyObservers(accountEntry);
     }
@@ -44,7 +44,7 @@ public abstract class BasicAccountService extends Observable implements AccountS
     @Override
     public void withdraw(String accountID, Double amountOfMoney, AccountEvent accountEvent) {
         Account account = accountDAO.loadAccount(accountID);
-        AccountEntry accountEntry = performWithdraw(account,amountOfMoney,accountEvent);
+        AccountEntry accountEntry = performWithdrawOnAccount(account,amountOfMoney,accountEvent);
         accountDAO.updateAccount(account);
         notifyObservers(accountEntry);
     }
@@ -53,7 +53,15 @@ public abstract class BasicAccountService extends Observable implements AccountS
         return accountDAO;
     }
 
-    protected abstract AccountEntry performWithdraw(Account account, Double amountOfMoney, AccountEvent accountEvent);
+    @Override
+    public String generateMonthlyBillReport(String accountID) {
+        Account account = accountDAO.loadAccount(accountID);
+        Interval lastMonth = new Interval(Period.months(1), Instant.now());
 
-    protected abstract AccountEntry performDeposit(Account account, Double amountOfMoney, AccountEvent accountEvent);
+        return account.generateReport(lastMonth);
+    }
+
+    protected abstract AccountEntry performWithdrawOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent);
+
+    protected abstract AccountEntry performDepositOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent);
 }

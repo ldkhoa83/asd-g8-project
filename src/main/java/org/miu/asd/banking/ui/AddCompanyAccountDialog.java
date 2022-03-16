@@ -14,13 +14,17 @@ import java.awt.*;
 
 public class AddCompanyAccountDialog extends JDialog
 {
-	private UICommand<BankAccountService> addCompAccountUICommand;
+	private UICommand addCompAccountUICommand;
 
-	public AddCompanyAccountDialog(FrameTemplate parent, UICommand<BankAccountService> addAccountUICommand)
+	public AddCompanyAccountDialog(FrameTemplate parent, UICommand addAccountUICommand)
 	{
 		super(parent);
 		addCompAccountUICommand = addAccountUICommand;
-		
+
+		initDialog(parent);
+	}
+
+	private void initDialog(FrameTemplate parent) {
 		setTitle("Add company account");
 		setModal(true);
 		getContentPane().setLayout(null);

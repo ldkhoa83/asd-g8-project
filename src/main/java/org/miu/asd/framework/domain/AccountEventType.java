@@ -1,7 +1,9 @@
 package org.miu.asd.framework.domain;
 
-import java.util.Collection;
+public enum AccountEventType {
+    NONE,
+    DEPOSIT,
+    WITHDRAW,
+    CHARGED;
 
-public interface AccountEventType {
-    String getDescription();
 }

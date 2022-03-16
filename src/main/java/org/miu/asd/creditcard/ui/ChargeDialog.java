@@ -1,5 +1,6 @@
 package org.miu.asd.creditcard.ui;
 
+import org.miu.asd.creditcard.domain.CreditCardAccount;
 import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.FrameTemplate;
 import org.miu.asd.framework.ui.UIBean;
@@ -51,7 +52,7 @@ public class ChargeDialog extends JDialog {
 
 
         JButton_OK.addActionListener(e -> {
-            UIBean bean = new UIBean();
+            CreditCardUIBean bean = new CreditCardUIBean();
             bean.setAmount(Double.valueOf(JTextField_AMT.getText()));
             bean.setAccountNumber(creditCardNumber);
             chargeUICommand.execute(bean);

@@ -3,22 +3,26 @@ package org.miu.asd.creditcard.ui;
 		A basic implementation of the JDialog class.
 */
 
+import org.joda.time.LocalDate;
 import org.miu.asd.creditcard.domain.CreditCardType;
 import org.miu.asd.framework.domain.Customer;
-import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.UICommand;
 
 import javax.swing.*;
 
-public class JDialog_AddCCAccount extends JDialog
+public class AddCreditCardAccountDialog extends JDialog
 {
-	private UICommand<AccountService> addCCAccountUICommand;
-    
-	public JDialog_AddCCAccount(CreditCardMainFrame parent, AccountService accountService)
+	private UICommand<CreditCardUIBean> addCCAccountUICommand;
+
+	public AddCreditCardAccountDialog(CreditCardMainFrame parent, UICommand<CreditCardUIBean> uiCommand)
 	{
 		super(parent);
-		addCCAccountUICommand = new AddCCAccountUICommand(accountService);
-		
+		addCCAccountUICommand = uiCommand;
+
+		initDialog(parent);
+	}
+
+	private void initDialog(CreditCardMainFrame parent) {
 		setTitle("Add credit card account");
 		setModal(true);
 		getContentPane().setLayout(null);
@@ -93,7 +97,6 @@ public class JDialog_AddCCAccount extends JDialog
 		getContentPane().add(JTextField_Email);
 		JTextField_Email.setBounds(84,228,156,20);
 
-		//{{REGISTER_LISTENERS
 		SymMouse aSymMouse = new SymMouse();
 		JRadioButton_Gold.addMouseListener(aSymMouse);
 		JRadioButton_Silver.addMouseListener(aSymMouse);
@@ -107,28 +110,27 @@ public class JDialog_AddCCAccount extends JDialog
 			String city=JTextField_CT.getText();
 			String zip=JTextField_ZIP.getText();
 			String state=JTextField_ST.getText();
-			String expDate = JTextField_ExpDate.getText();
+			LocalDate expDate = LocalDate.parse(JTextField_ExpDate.getText());
 
-			String accountType = "";
+			CreditCardType accountType;
 			if (JRadioButton_Gold.isSelected())
-				accountType= CreditCardType.GOLD.getName();
+				accountType= CreditCardType.GOLD;
 			else if (JRadioButton_Silver.isSelected())
-				accountType=CreditCardType.SILVER.getName();
+				accountType=CreditCardType.SILVER;
 			else
-				accountType=CreditCardType.BRONZE.getName();
+				accountType=CreditCardType.BRONZE;
 
 			CreditCardUIBean bean = new CreditCardUIBean();
 			bean.setAccountNumber(ccNum);
-			bean.setAccountType(accountType);
+			bean.setCreditCardType(accountType);
 			Customer customer = new Customer(name,street,city,zip,state);
 			bean.setCustomer(customer);
-			bean.setExpDate(expDate);
+			bean.setExpiredDate(expDate);
 			addCCAccountUICommand.execute(bean);
 			parent.updateContent();
 			dispose();
 		});
 		JButton_Cancel.addActionListener(e -> dispose());
-		//}}
 	}
 
 

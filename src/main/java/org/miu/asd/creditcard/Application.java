@@ -11,5 +11,4 @@ public class Application {
         CreditCardMainFrame creditCardMainFrame = new CreditCardMainFrame(service, new CreditCardUIConfig(), "Credit Card Application.");
         creditCardMainFrame.setVisible(true);
     }
-
 }

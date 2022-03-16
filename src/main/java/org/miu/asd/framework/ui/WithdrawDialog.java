@@ -11,13 +11,18 @@ import java.awt.*;
 public class WithdrawDialog extends JDialog
 {
    
-	private UICommand withdrawUICommand;
+	private UICommand<UICommandBean> withdrawUICommand;
 
-	public WithdrawDialog(FrameTemplate parent, String accountNumber, String customerName, AccountService accountService)
+	public WithdrawDialog(FrameTemplate parent, String accountNumber, String customerName, UICommand uiCommand)
 	{
 		super(parent);
-		withdrawUICommand = new WithdrawUICommand(accountService);
-		
+		withdrawUICommand = uiCommand;
+
+		initDialog(parent, accountNumber, customerName);
+
+	}
+
+	private void initDialog(FrameTemplate parent, String accountNumber, String customerName) {
 		setTitle("Withdraw");
 		setModal(true);
 		getContentPane().setLayout(null);
@@ -44,10 +49,10 @@ public class WithdrawDialog extends JDialog
 		JButton_Calcel.setActionCommand("Cancel");
 		getContentPane().add(JButton_Calcel);
 		JButton_Calcel.setBounds(156,84,84,24);
-		
-	    JTextField_NAME.setText(accountNumber);
-	
-		
+
+		JTextField_NAME.setText(accountNumber);
+
+
 		JButton_OK.addActionListener(e -> {
 			UIBean bean = new UIBean();
 			bean.setAmount(Double.valueOf(JTextField_AMT.getText()));
@@ -59,7 +64,6 @@ public class WithdrawDialog extends JDialog
 			dispose();
 		});
 		JButton_Calcel.addActionListener(e -> dispose());
-		
 	}
 
 	JLabel JLabel1 = new JLabel();
