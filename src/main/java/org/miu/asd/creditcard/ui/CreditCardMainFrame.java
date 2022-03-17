@@ -58,7 +58,7 @@ public class CreditCardMainFrame extends FrameTemplate implements CreditCardUICo
     };
 
     @Override
-    public Map<String, ButtonConfig> specifiesButtons() {
+    public Map<String, ButtonConfig> buttonConfigs() {
         Map<String,ButtonConfig> buttons = new HashMap<>();
         buttons.put("Add credit account",new ButtonConfig(createCreditCardAccount,24,20,192,33));
         buttons.put("Deposit",new ButtonConfig(deposit,468,104,96,33));

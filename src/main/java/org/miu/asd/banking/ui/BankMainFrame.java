@@ -71,7 +71,7 @@ public class BankMainFrame extends FrameTemplate implements BankUICommandControl
 
 
     @Override
-    public Map<String, ButtonConfig> specifiesButtons() {
+    public Map<String, ButtonConfig> buttonConfigs() {
         Map<String, ButtonConfig> buttons = new HashMap<>();
         buttons.put("Add personal account",new ButtonConfig(personalAccount,24,20,192,33));
         buttons.put("Add company account",new ButtonConfig(companyAccount,240,20,192,33));

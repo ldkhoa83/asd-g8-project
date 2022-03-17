@@ -30,16 +30,16 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
         addWindowListener(new SymWindow());
     }
 
-    public abstract Map<String, ButtonConfig> specifiesButtons();
+    public abstract Map<String, ButtonConfig> buttonConfigs();
 
     public final void constructFrame(String title){
         setupMainPanel(title,frameConfig);
         setupContentGrid(frameConfig);
-        setupButtons(specifiesButtons());
+        setupButtons(buttonConfigs());
     }
 
-    private void setupButtons(Map<String, ButtonConfig> buttons) {
-        for(Map.Entry<String,ButtonConfig> button : buttons.entrySet()){
+    private void setupButtons(Map<String, ButtonConfig> buttonConfigs) {
+        for(Map.Entry<String,ButtonConfig> button : buttonConfigs.entrySet()){
             JButton btn = new JButton();
             btn.setText(button.getKey());
             mainPanel.add(btn);
