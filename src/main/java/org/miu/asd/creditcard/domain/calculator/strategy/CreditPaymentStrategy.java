@@ -3,7 +3,7 @@ package org.miu.asd.creditcard.domain.calculator.strategy;
 import org.miu.asd.banking.domain.calculator.strategy.InterestComputationStrategy;
 
 
-public interface CreditPaymentCalculator extends InterestComputationStrategy {
+public interface CreditPaymentStrategy extends InterestComputationStrategy {
     double calculateTotalDue(Double balance);
 
     default double calculateBalance(double prevBalance, double totalCharge,double totalCredit) {

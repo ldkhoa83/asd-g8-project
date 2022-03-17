@@ -1,12 +1,12 @@
 package org.miu.asd.creditcard.domain.calculator.strategy;
 
-public class SilverCreditCard implements CreditPaymentCalculator {
+public class GoldPaymentCalculator implements CreditPaymentStrategy {
     @Override
     public Double computeInterest(Double balance) {
-        return balance*0.08;
+        return balance*0.06;
     }
     @Override
     public double calculateTotalDue(Double balance) {
-        return balance * 0.12;
+        return balance * 0.1;
     }
 }

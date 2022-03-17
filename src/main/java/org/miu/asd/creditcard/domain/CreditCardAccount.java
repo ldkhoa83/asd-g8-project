@@ -2,20 +2,20 @@ package org.miu.asd.creditcard.domain;
 
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
-import org.miu.asd.creditcard.domain.calculator.strategy.CreditPaymentCalculator;
+import org.miu.asd.creditcard.domain.calculator.strategy.CreditPaymentStrategy;
 import org.miu.asd.framework.domain.*;
 
 
 public class CreditCardAccount extends Account {
     private LocalDate expiredDate;
-    private CreditPaymentCalculator creditPaymentCalculator;
+    private CreditPaymentStrategy creditPaymentStrategy;
     private CreditCardType creditCardType;
 
-    public CreditCardAccount(String accountNumber, Customer customer, LocalDate expiredDate, CreditCardType creditCardType,CreditPaymentCalculator creditPaymentCalculator) {
+    public CreditCardAccount(String accountNumber, Customer customer, LocalDate expiredDate, CreditCardType creditCardType, CreditPaymentStrategy creditPaymentStrategy) {
         super(accountNumber, customer);
         this.expiredDate = expiredDate;
         this.creditCardType = creditCardType;
-        this.creditPaymentCalculator=creditPaymentCalculator;
+        this.creditPaymentStrategy = creditPaymentStrategy;
     }
 
     public CreditCardAccount(String accountNumber, Customer customer){
@@ -47,13 +47,9 @@ public class CreditCardAccount extends Account {
                 .map(AccountEntry::getAmountOfMoney)
                 .reduce((x,y) -> x + y).orElse(0.0);
         Double totalCredits = computeDeposits(interval);
-        Double newBalance= creditPaymentCalculator.calculateBalance(previousBalance,totalCharges, totalCredits);
-        Double totalDue=creditPaymentCalculator.calculateTotalDue(newBalance);
-
-
+        Double newBalance= creditPaymentStrategy.calculateBalance(previousBalance,totalCharges, totalCredits);
+        Double totalDue= creditPaymentStrategy.calculateTotalDue(newBalance);
         return buildReportContent(previousBalance,totalCharges,totalCredits,newBalance ,totalDue);
-
-        //return buildReportContent(previousBalance,totalCharges,totalCredits,0.0,0.0);
     }
 
     private String buildReportContent(Double previousBalance,Double totalCharges, Double totalCredits, Double newBalance, Double duePayment){

@@ -1,6 +1,6 @@
 package org.miu.asd.creditcard.domain.calculator.strategy;
 
-public class BronzeCreditCard implements CreditPaymentCalculator {
+public class BronzePaymentCalculator implements CreditPaymentStrategy {
     @Override
     public Double computeInterest(Double balance) {
         return balance*0.1;
