@@ -6,14 +6,16 @@ import org.miu.asd.framework.domain.AccountEventType;
 import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.bean.BaseUIBean;
 
-public class DepositUICommand extends UICommand<BaseUIBean> {
+public class DepositUICommand implements UICommand<BaseUIBean> {
+    private AccountService accountService;
+
     public DepositUICommand(AccountService accountService) {
-        super(accountService);
+        this.accountService = accountService;
     }
 
     @Override
     public void execute(BaseUIBean bean) {
         AccountEvent accountEvent = new AccountEvent(LocalDateTime.now(),bean.getCustomer().getName(), AccountEventType.DEPOSIT);
-        getAccountService().deposit(bean.getAccountNumber(),bean.getAmount(),accountEvent);
+        accountService.deposit(bean.getAccountNumber(),bean.getAmount(),accountEvent);
     }
 }

@@ -7,14 +7,16 @@ import org.miu.asd.framework.domain.AccountEvent;
 import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.command.UICommand;
 
-public class ChargeUICommand extends UICommand<CreditCardUIBean> {
+public class ChargeUICommand implements UICommand<CreditCardUIBean> {
+    private AccountService accountService;
+
     public ChargeUICommand(AccountService accountService) {
-        super(accountService);
+        this.accountService = accountService;
     }
 
     @Override
     public void execute(CreditCardUIBean bean) {
         AccountEvent accountEvent = new AccountEvent(LocalDateTime.now(),"Unknown", AccountEventType.CHARGED);
-        getAccountService().charge(bean.getAccountNumber(),bean.getAmount(),accountEvent);
+        accountService.charge(bean.getAccountNumber(),bean.getAmount(),accountEvent);
     }
 }

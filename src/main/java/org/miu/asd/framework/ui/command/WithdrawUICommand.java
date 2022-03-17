@@ -6,14 +6,16 @@ import org.miu.asd.framework.domain.AccountEventType;
 import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.bean.BaseUIBean;
 
-public class WithdrawUICommand extends UICommand<BaseUIBean>{
+public class WithdrawUICommand implements UICommand<BaseUIBean>{
+    private AccountService accountService;
+
     public WithdrawUICommand(AccountService accountService) {
-        super(accountService);
+        this.accountService = accountService;
     }
 
     @Override
     public void execute(BaseUIBean bean) {
         AccountEvent accountEvent = new AccountEvent(LocalDateTime.now(),bean.getCustomer().getName(), AccountEventType.WITHDRAW);
-        getAccountService().withdraw(bean.getAccountNumber(),bean.getAmount(),accountEvent);
+        accountService.withdraw(bean.getAccountNumber(),bean.getAmount(),accountEvent);
     }
 }

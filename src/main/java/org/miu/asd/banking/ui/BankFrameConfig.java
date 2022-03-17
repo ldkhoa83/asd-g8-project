@@ -8,7 +8,7 @@ import org.miu.asd.framework.ui.FrameConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BankMainFrameConfig implements FrameConfig {
+public class BankFrameConfig implements FrameConfig {
     @Override
     public int getFrameHeight() {
         return 310;

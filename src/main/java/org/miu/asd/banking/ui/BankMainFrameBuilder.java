@@ -17,7 +17,7 @@ public class BankMainFrameBuilder {
     private static final BankMainFrameBuilder INSTANCE = new BankMainFrameBuilder();
 
     private static AccountService accountService = new BankAccountService(new MemoryAccountDAO());
-    private static BankMainFrameConfig mainFrameConfig = new BankMainFrameConfig();
+    private static BankFrameConfig mainFrameConfig = new BankFrameConfig();
     private static UICommand<BaseUIBean> addAccountUICommand = new AddAccountUICommand(accountService);
     private static UICommand<BaseUIBean> frameUpdateUICommand = new FrameUpdateUICommand(accountService);
     private static UICommand<BaseUIBean> depositUICommand = new DepositUICommand(accountService);
@@ -67,7 +67,7 @@ public class BankMainFrameBuilder {
         return INSTANCE;
     }
 
-    public BankMainFrameBuilder withMainFrameConfig(BankMainFrameConfig bankMainFrameConfig){
+    public BankMainFrameBuilder withMainFrameConfig(BankFrameConfig bankMainFrameConfig){
         mainFrameConfig = bankMainFrameConfig;
         return INSTANCE;
     }

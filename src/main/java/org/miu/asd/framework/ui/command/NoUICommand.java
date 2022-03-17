@@ -3,14 +3,13 @@ package org.miu.asd.framework.ui.command;
 import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.bean.UICommandBean;
 
-public class NoUICommand extends UICommand {
+public class NoUICommand implements UICommand<UICommandBean> {
+    private AccountService accountService;
 
-    public NoUICommand(){
-        super(null);
-    }
+    public NoUICommand(){}
 
     public NoUICommand(AccountService accountService) {
-        super(accountService);
+        this.accountService = accountService;
     }
 
     @Override

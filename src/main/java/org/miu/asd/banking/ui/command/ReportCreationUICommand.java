@@ -4,14 +4,16 @@ import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.bean.BaseUIBean;
 import org.miu.asd.framework.ui.command.UICommand;
 
-public class ReportCreationUICommand extends UICommand<BaseUIBean> {
+public class ReportCreationUICommand implements UICommand<BaseUIBean> {
+    private AccountService accountService;
+
     public ReportCreationUICommand(AccountService accountService) {
-        super(accountService);
+        this.accountService = accountService;
     }
 
     @Override
     public void execute(BaseUIBean bean) {
-        String report = getAccountService().generateAllAccountReports();
+        String report = accountService.generateAllAccountReports();
         bean.setAllAccountsReport(report);
     }
 }

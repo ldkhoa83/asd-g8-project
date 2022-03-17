@@ -17,7 +17,7 @@ public class CreditCardMainFrameBuilder {
     private static final CreditCardMainFrameBuilder INSTANCE = new CreditCardMainFrameBuilder();
 
     private static AccountService accountService = new CreditCardAccountService(new MemoryAccountDAO());
-    private static CreditCardUIConfig mainFrameConfig = new CreditCardUIConfig();
+    private static CreditCardFrameConfig mainFrameConfig = new CreditCardFrameConfig();
     private static UICommand<CreditCardUIBean> addAccountUICommand = new AddCreditCardAccountUICommand(accountService);
     private static UICommand<BaseUIBean> frameUpdateUICommand = new FrameUpdateUICommand(accountService);
     private static UICommand<BaseUIBean> depositUICommand = new DepositUICommand(accountService);
@@ -61,7 +61,7 @@ public class CreditCardMainFrameBuilder {
         return INSTANCE;
     }
 
-    public CreditCardMainFrameBuilder withMainFrameConfig(CreditCardUIConfig creditCardUIConfig){
+    public CreditCardMainFrameBuilder withMainFrameConfig(CreditCardFrameConfig creditCardUIConfig){
         mainFrameConfig = creditCardUIConfig;
         return INSTANCE;
     }

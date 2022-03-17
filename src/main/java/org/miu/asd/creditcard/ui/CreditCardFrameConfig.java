@@ -6,7 +6,7 @@ import org.miu.asd.framework.ui.FrameConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreditCardUIConfig implements FrameConfig<CreditCardAccount> {
+public class CreditCardFrameConfig implements FrameConfig<CreditCardAccount> {
     @Override
     public int getFrameHeight() {
         return 310;
