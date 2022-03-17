@@ -37,13 +37,13 @@ public class BankAccountService extends BaseAccountService implements Observable
 
 
     @Override
-    public void registerObserver(Observer observer) {
-        this.observers.add(observer);
+    public void registerObserver(Observer o) {
+        this.observers.add(o);
     }
 
     @Override
-    public void removeObserver(Observer observer) {
-        this.observers.remove(observer);
+    public void removeObserver(Observer o) {
+        this.observers.remove(o);
     }
 
     @Override

@@ -24,6 +24,7 @@ public class CreditCardAccountService extends BaseAccountService implements Obse
         notifyObservers(accountEntry,account);
     }
     @Override
+
     protected AccountEntry performWithdrawOnAccount(Account account, Double amountOfMoney, AccountEvent accountEvent) {
         return account.deposit(amountOfMoney,accountEvent);
     }
@@ -33,13 +34,13 @@ public class CreditCardAccountService extends BaseAccountService implements Obse
         return account.withdraw(amountOfMoney,accountEvent);
     }
     @Override
-    public void registerObserver(Observer observer) {
-        this.observers.add(observer);
+    public void registerObserver(Observer o) {
+        this.observers.add(o);
     }
 
     @Override
-    public void removeObserver(Observer observer) {
-        this.observers.remove(observer);
+    public void removeObserver(Observer o) {
+        this.observers.remove(o);
     }
 
     @Override
