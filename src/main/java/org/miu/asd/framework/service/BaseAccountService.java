@@ -5,12 +5,11 @@ import org.joda.time.Interval;
 import org.joda.time.Period;
 import org.miu.asd.framework.dao.AccountDAO;
 import org.miu.asd.framework.domain.*;
-import org.miu.asd.framework.observer.Observable;
 
 import java.io.StringWriter;
 import java.util.Collection;
 
-public abstract class BaseAccountService implements Observable, AccountService {
+public abstract class BaseAccountService implements AccountService {
 
     private AccountDAO accountDAO;
 
@@ -40,7 +39,7 @@ public abstract class BaseAccountService implements Observable, AccountService {
         Account account = accountDAO.loadAccount(accountNumber);
         AccountEntry accountEntry = performDepositOnAccount(account, amountOfMoney, accountEvent);
         accountDAO.updateAccount(account);
-        notifyObservers(accountEntry,account);
+        performNotify(accountEntry,account);
 
     }
 
@@ -49,7 +48,7 @@ public abstract class BaseAccountService implements Observable, AccountService {
         Account account = accountDAO.loadAccount(accountNumber);
         AccountEntry accountEntry = performWithdrawOnAccount(account, amountOfMoney, accountEvent);
         accountDAO.updateAccount(account);
-        notifyObservers(accountEntry,account);
+        performNotify(accountEntry,account);
 
     }
 

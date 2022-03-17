@@ -12,9 +12,9 @@ import java.awt.event.WindowEvent;
 import java.util.Map;
 
 public abstract class FrameTemplate extends JFrame implements UICommandController{
-    JPanel JPanel1 = new JPanel();
-
     protected FrameConfig<Account> frameConfig;
+
+    JPanel JPanel1 = new JPanel();
     private DefaultTableModel model;
     protected JTable JTable1;
     private JScrollPane JScrollPane1;
@@ -25,7 +25,7 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
     private UICommand<BaseUIBean> depositCommand;
     private UICommand<BaseUIBean> withdrawCommand;
 
-   public FrameTemplate(FrameConfig frameConfig){
+   public FrameTemplate(FrameConfig<Account> frameConfig){
         this.frameConfig = frameConfig;
         addWindowListener(new SymWindow());
     }
