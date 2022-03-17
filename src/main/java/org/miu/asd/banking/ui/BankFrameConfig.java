@@ -15,12 +15,12 @@ public class BankFrameConfig implements FrameConfig {
     }
 
     @Override
-    public int getFrameWith() {
+    public int getFrameWidth() {
         return 575;
     }
 
     @Override
-    public List<String> getColumnsOfContentGrid() {
+    public List<String> getColumnsOfAccountTable() {
         List<String> columns = new ArrayList<>();
         columns.add("AccountNr");
         columns.add("Name");
@@ -54,22 +54,22 @@ public class BankFrameConfig implements FrameConfig {
     }
 
     @Override
-    public int getContentScrollPanelWidth() {
+    public int getAccountScrollPanelWidth() {
         return 444;
     }
 
     @Override
-    public int getContentScrollPanelHeight() {
+    public int getAccountScrollPanelHeight() {
         return 160;
     }
 
     @Override
-    public int getContentGridWith() {
+    public int getAccountTableWidth() {
         return 420;
     }
 
     @Override
-    public int getContentGridHeight() {
+    public int getAccountTableHeight() {
         return 0;
     }
 

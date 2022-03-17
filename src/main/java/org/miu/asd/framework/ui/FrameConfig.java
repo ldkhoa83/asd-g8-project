@@ -7,19 +7,19 @@ import java.util.List;
 public interface FrameConfig<T extends Account> {
     int getFrameHeight();
 
-    int getFrameWith();
+    int getFrameWidth();
 
-    List<String> getColumnsOfContentGrid();
+    List<String> getColumnsOfAccountTable();
 
     int getAccountNumberColumnIndex();
 
-    int getContentScrollPanelWidth();
+    int getAccountScrollPanelWidth();
 
-    int getContentScrollPanelHeight();
+    int getAccountScrollPanelHeight();
 
-    int getContentGridWith();
+    int getAccountTableWidth();
 
-    int getContentGridHeight();
+    int getAccountTableHeight();
 
     Object[] buildRow(T account);
 

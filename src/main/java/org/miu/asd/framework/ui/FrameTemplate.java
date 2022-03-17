@@ -53,24 +53,24 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
 
         model = new DefaultTableModel();
         AccountTable = new JTable(model);
-        for(String columnName : frameConfig.getColumnsOfContentGrid()){
+        for(String columnName : frameConfig.getColumnsOfAccountTable()){
             model.addColumn(columnName);
         }
-        AccountScrollPanel.setBounds(12,92,frameConfig.getContentScrollPanelWidth(),frameConfig.getContentScrollPanelHeight());
+        AccountScrollPanel.setBounds(12,92,frameConfig.getAccountScrollPanelWidth(),frameConfig.getAccountScrollPanelHeight());
         mainPanel.add(AccountScrollPanel);
         AccountScrollPanel.getViewport().add(AccountTable);
-        AccountTable.setBounds(0, 0, frameConfig.getContentGridWith(), frameConfig.getContentGridHeight());
+        AccountTable.setBounds(0, 0, frameConfig.getAccountTableWidth(), frameConfig.getAccountTableHeight());
     }
 
     private void setupMainPanel(String title, FrameConfig<Account> frameConfig) {
         setTitle(title);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout(0,0));
-        setSize(frameConfig.getFrameWith(),frameConfig.getFrameHeight());
+        setSize(frameConfig.getFrameWidth(),frameConfig.getFrameHeight());
         setVisible(false);
         mainPanel.setLayout(null);
         getContentPane().add(BorderLayout.CENTER, mainPanel);
-        mainPanel.setBounds(0,0,frameConfig.getFrameWith(),frameConfig.getFrameHeight());
+        mainPanel.setBounds(0,0,frameConfig.getFrameWidth(),frameConfig.getFrameHeight());
     }
 
     public DefaultTableModel getModel() {
