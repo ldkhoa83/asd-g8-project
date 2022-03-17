@@ -84,7 +84,7 @@ public class BankMainFrame extends FrameTemplate implements BankUICommandControl
     }
 
     @Override
-    public void setAddAccountCommad(UICommand<BaseUIBean> addAccountCommad) {
+    public void setAddAccountCommand(UICommand<BaseUIBean> addAccountCommad) {
         this.addAccountCommand = addAccountCommad;
     }
 

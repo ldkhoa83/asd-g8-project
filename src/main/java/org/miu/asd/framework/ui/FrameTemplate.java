@@ -14,10 +14,10 @@ import java.util.Map;
 public abstract class FrameTemplate extends JFrame implements UICommandController{
     protected FrameConfig<Account> frameConfig;
 
-    JPanel JPanel1 = new JPanel();
+    JPanel mainPanel = new JPanel();
     private DefaultTableModel model;
-    protected JTable JTable1;
-    private JScrollPane JScrollPane1;
+    protected JTable table;
+    private JScrollPane scrollPanelOfTable;
 
     public static final String NO_TITLE = "No Title.";
 
@@ -42,24 +42,24 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
         for(Map.Entry<String,ButtonConfig> button : buttons.entrySet()){
             JButton btn = new JButton();
             btn.setText(button.getKey());
-            JPanel1.add(btn);
+            mainPanel.add(btn);
             btn.addActionListener(button.getValue().getActionListener());
             btn.setBounds(button.getValue().getX(),button.getValue().getY(),button.getValue().getWidth(),button.getValue().getHeight());
         }
     }
 
     private void setupContentGrid(FrameConfig<Account> frameConfig) {
-        JScrollPane1 = new JScrollPane();
+        scrollPanelOfTable = new JScrollPane();
 
         model = new DefaultTableModel();
-        JTable1 = new JTable(model);
+        table = new JTable(model);
         for(String columnName : frameConfig.getColumnsOfContentGrid()){
             model.addColumn(columnName);
         }
-        JScrollPane1.setBounds(12,92,frameConfig.getContentScrollPanelWidth(),frameConfig.getContentScrollPanelHeight());
-        JPanel1.add(JScrollPane1);
-        JScrollPane1.getViewport().add(JTable1);
-        JTable1.setBounds(0, 0, frameConfig.getContentGridWith(), frameConfig.getContentGridHeight());
+        scrollPanelOfTable.setBounds(12,92,frameConfig.getContentScrollPanelWidth(),frameConfig.getContentScrollPanelHeight());
+        mainPanel.add(scrollPanelOfTable);
+        scrollPanelOfTable.getViewport().add(table);
+        table.setBounds(0, 0, frameConfig.getContentGridWith(), frameConfig.getContentGridHeight());
     }
 
     private void setupMainPanel(String title, FrameConfig<Account> frameConfig) {
@@ -68,9 +68,9 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
         getContentPane().setLayout(new BorderLayout(0,0));
         setSize(frameConfig.getFrameWith(),frameConfig.getFrameHeight());
         setVisible(false);
-        JPanel1.setLayout(null);
-        getContentPane().add(BorderLayout.CENTER, JPanel1);
-        JPanel1.setBounds(0,0,frameConfig.getFrameWith(),frameConfig.getFrameHeight());
+        mainPanel.setLayout(null);
+        getContentPane().add(BorderLayout.CENTER, mainPanel);
+        mainPanel.setBounds(0,0,frameConfig.getFrameWith(),frameConfig.getFrameHeight());
     }
 
     public DefaultTableModel getModel() {
@@ -104,7 +104,7 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
 
     private void tableRow(Account account){
         model.addRow(frameConfig.buildRow(account));
-        JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
+        table.getSelectionModel().setAnchorSelectionIndex(-1);
     }
 
     void exitApplication()
@@ -118,7 +118,7 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
     }
 
     public int getSelectionIndex() {
-        return JTable1.getSelectionModel().getMinSelectionIndex();
+        return table.getSelectionModel().getMinSelectionIndex();
     }
 
     public ActionListener getExitEventHandler() {

@@ -11,9 +11,7 @@ import java.awt.*;
 
 
 
-public class WithdrawDialog extends JDialog
-{
-   
+public class WithdrawDialog extends JDialog {
 	private UICommand<UICommandBean> withdrawUICommand;
 
 	public WithdrawDialog(FrameTemplate parent, String accountNumber, String customerName, UICommand uiCommand)

@@ -79,7 +79,7 @@ public class BankMainFrameBuilder {
 
     public BankMainFrame build(){
         BankMainFrame bankMainFrame = new BankMainFrame(mainFrameConfig,frameTitle);
-        bankMainFrame.setAddAccountCommad(addAccountUICommand);
+        bankMainFrame.setAddAccountCommand(addAccountUICommand);
         bankMainFrame.setFrameUpdateCommand(frameUpdateUICommand);
         bankMainFrame.setDepositCommand(depositUICommand);
         bankMainFrame.setWithdrawCommand(withdrawUICommand);
