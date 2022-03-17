@@ -8,7 +8,7 @@ import org.miu.asd.creditcard.ui.command.ChargeUICommand;
 import org.miu.asd.framework.dao.MemoryAccountDAO;
 import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.*;
-import org.miu.asd.framework.ui.bean.UIBean;
+import org.miu.asd.framework.ui.bean.BaseUIBean;
 import org.miu.asd.framework.ui.command.DepositUICommand;
 import org.miu.asd.framework.ui.command.FrameUpdateUICommand;
 import org.miu.asd.framework.ui.command.UICommand;
@@ -19,8 +19,8 @@ public class CreditCardMainFrameBuilder {
     private static AccountService accountService = new CreditCardAccountService(new MemoryAccountDAO());
     private static CreditCardUIConfig mainFrameConfig = new CreditCardUIConfig();
     private static UICommand<CreditCardUIBean> addAccountUICommand = new AddCreditCardAccountUICommand(accountService);
-    private static UICommand<UIBean> frameUpdateUICommand = new FrameUpdateUICommand(accountService);
-    private static UICommand<UIBean> depositUICommand = new DepositUICommand(accountService);
+    private static UICommand<BaseUIBean> frameUpdateUICommand = new FrameUpdateUICommand(accountService);
+    private static UICommand<BaseUIBean> depositUICommand = new DepositUICommand(accountService);
     private static UICommand<CreditCardUIBean> chargeUICommand = new ChargeUICommand(accountService);
     private static UICommand<CreditCardUIBean> billCreationUICommand = new BillCreationUICommand(accountService);
     private static String frameTitle = FrameTemplate.NO_TITLE;
@@ -36,12 +36,12 @@ public class CreditCardMainFrameBuilder {
         return INSTANCE;
     }
 
-    public CreditCardMainFrameBuilder withFrameUpdateCommand(UICommand<UIBean> frameUpdateCommand){
+    public CreditCardMainFrameBuilder withFrameUpdateCommand(UICommand<BaseUIBean> frameUpdateCommand){
         frameUpdateUICommand = frameUpdateCommand;
         return INSTANCE;
     }
 
-    public CreditCardMainFrameBuilder withDepositCommand(UICommand<UIBean> depositCommand){
+    public CreditCardMainFrameBuilder withDepositCommand(UICommand<BaseUIBean> depositCommand){
         depositUICommand = depositCommand;
         return INSTANCE;
     }

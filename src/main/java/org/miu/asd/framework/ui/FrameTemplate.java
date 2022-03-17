@@ -1,7 +1,7 @@
 package org.miu.asd.framework.ui;
 
 import org.miu.asd.framework.domain.Account;
-import org.miu.asd.framework.ui.bean.UIBean;
+import org.miu.asd.framework.ui.bean.BaseUIBean;
 import org.miu.asd.framework.ui.command.UICommand;
 
 import javax.swing.*;
@@ -21,9 +21,9 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
 
     public static final String NO_TITLE = "No Title.";
 
-    private UICommand<UIBean> frameUpdateCommand;
-    private UICommand<UIBean> depositCommand;
-    private UICommand<UIBean> withdrawCommand;
+    private UICommand<BaseUIBean> frameUpdateCommand;
+    private UICommand<BaseUIBean> depositCommand;
+    private UICommand<BaseUIBean> withdrawCommand;
 
    public FrameTemplate(FrameConfig frameConfig){
         this.frameConfig = frameConfig;
@@ -97,7 +97,7 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
             }
         }
 
-        UIBean bean = new UIBean();
+        BaseUIBean bean = new BaseUIBean();
         frameUpdateCommand.execute(bean);
         bean.getAllAccounts().forEach(this::tableRow);
     }
@@ -148,26 +148,26 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
     }
 
     @Override
-    public void setFrameUpdateCommand(UICommand<UIBean> frameUpdateCommand) {
+    public void setFrameUpdateCommand(UICommand<BaseUIBean> frameUpdateCommand) {
         this.frameUpdateCommand = frameUpdateCommand;
     }
 
     @Override
-    public void setDepositCommand(UICommand<UIBean> depositUICommand) {
+    public void setDepositCommand(UICommand<BaseUIBean> depositUICommand) {
         this.depositCommand = depositUICommand;
     }
 
     @Override
-    public void setWithdrawCommand(UICommand<UIBean> withdrawUICommand) {
+    public void setWithdrawCommand(UICommand<BaseUIBean> withdrawUICommand) {
         this.withdrawCommand = withdrawUICommand;
     }
 
 
-    protected UICommand<UIBean> getDepositCommand() {
+    protected UICommand<BaseUIBean> getDepositCommand() {
         return depositCommand;
     }
 
-    protected UICommand<UIBean> getWithdrawCommand() {
+    protected UICommand<BaseUIBean> getWithdrawCommand() {
         return withdrawCommand;
     }
 

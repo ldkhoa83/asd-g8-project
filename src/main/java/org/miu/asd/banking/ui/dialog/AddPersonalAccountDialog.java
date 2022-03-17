@@ -7,7 +7,7 @@ import org.joda.time.LocalDate;
 import org.miu.asd.framework.domain.Person;
 import org.miu.asd.banking.ui.AccountType;
 import org.miu.asd.framework.ui.FrameTemplate;
-import org.miu.asd.framework.ui.bean.UIBean;
+import org.miu.asd.framework.ui.bean.BaseUIBean;
 import org.miu.asd.framework.ui.command.UICommand;
 import org.miu.asd.framework.ui.bean.UICommandBean;
 
@@ -101,7 +101,7 @@ public class AddPersonalAccountDialog extends JDialog
 		JRadioButton_Chk.addMouseListener(aSymMouse);
 		JRadioButton_Sav.addMouseListener(aSymMouse);
 		JButton_OK.addActionListener(e -> {
-			UIBean bean = new UIBean();
+			BaseUIBean bean = new BaseUIBean();
 
 			String accNum = JTextField_ACNR.getText();
 			String name =JTextField_NAME.getText();

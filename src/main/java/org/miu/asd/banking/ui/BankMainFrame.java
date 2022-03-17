@@ -4,7 +4,7 @@ import org.miu.asd.banking.ui.dialog.AddCompanyAccountDialog;
 import org.miu.asd.banking.ui.dialog.AddPersonalAccountDialog;
 import org.miu.asd.banking.ui.dialog.ReportDialog;
 import org.miu.asd.framework.ui.*;
-import org.miu.asd.framework.ui.bean.UIBean;
+import org.miu.asd.framework.ui.bean.BaseUIBean;
 import org.miu.asd.framework.ui.command.UICommand;
 import org.miu.asd.framework.ui.dialog.DepositDialog;
 import org.miu.asd.framework.ui.dialog.WithdrawDialog;
@@ -16,9 +16,9 @@ import java.util.Map;
 
 public class BankMainFrame extends FrameTemplate implements BankUICommandController{
 
-    private UICommand<UIBean> addAccountCommand;
-    private UICommand<UIBean> addInterestUICommand;
-    private UICommand<UIBean> reportCreationUICommand;
+    private UICommand<BaseUIBean> addAccountCommand;
+    private UICommand<BaseUIBean> addInterestUICommand;
+    private UICommand<BaseUIBean> reportCreationUICommand;
 
     private final ActionListener personalAccount = (actionEvent) -> {
         openDialog(new AddPersonalAccountDialog(this,addAccountCommand));
@@ -42,7 +42,7 @@ public class BankMainFrame extends FrameTemplate implements BankUICommandControl
     };
 
     private final ActionListener addInterest = (actionEvent) -> {
-        UIBean uiBean = new UIBean();
+        BaseUIBean uiBean = new BaseUIBean();
         addInterestUICommand.execute(uiBean);
         updateContent();
 
@@ -84,17 +84,17 @@ public class BankMainFrame extends FrameTemplate implements BankUICommandControl
     }
 
     @Override
-    public void setAddAccountCommad(UICommand<UIBean> addAccountCommad) {
+    public void setAddAccountCommad(UICommand<BaseUIBean> addAccountCommad) {
         this.addAccountCommand = addAccountCommad;
     }
 
     @Override
-    public void setAddInterestCommand(UICommand<UIBean> addInterestCommand) {
+    public void setAddInterestCommand(UICommand<BaseUIBean> addInterestCommand) {
         this.addInterestUICommand = addInterestCommand;
     }
 
     @Override
-    public void setAllAccReportCommand(UICommand<UIBean> allAccReportCommand) {
+    public void setAllAccReportCommand(UICommand<BaseUIBean> allAccReportCommand) {
         this.reportCreationUICommand = allAccReportCommand;
     }
 }
