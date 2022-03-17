@@ -16,8 +16,8 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
 
     JPanel mainPanel = new JPanel();
     private DefaultTableModel model;
-    protected JTable table;
-    private JScrollPane scrollPanelOfTable;
+    protected JTable AccountTable;
+    private JScrollPane AccountScrollPanel;
 
     public static final String NO_TITLE = "No Title.";
 
@@ -49,17 +49,17 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
     }
 
     private void setupContentGrid(FrameConfig<Account> frameConfig) {
-        scrollPanelOfTable = new JScrollPane();
+        AccountScrollPanel = new JScrollPane();
 
         model = new DefaultTableModel();
-        table = new JTable(model);
+        AccountTable = new JTable(model);
         for(String columnName : frameConfig.getColumnsOfContentGrid()){
             model.addColumn(columnName);
         }
-        scrollPanelOfTable.setBounds(12,92,frameConfig.getContentScrollPanelWidth(),frameConfig.getContentScrollPanelHeight());
-        mainPanel.add(scrollPanelOfTable);
-        scrollPanelOfTable.getViewport().add(table);
-        table.setBounds(0, 0, frameConfig.getContentGridWith(), frameConfig.getContentGridHeight());
+        AccountScrollPanel.setBounds(12,92,frameConfig.getContentScrollPanelWidth(),frameConfig.getContentScrollPanelHeight());
+        mainPanel.add(AccountScrollPanel);
+        AccountScrollPanel.getViewport().add(AccountTable);
+        AccountTable.setBounds(0, 0, frameConfig.getContentGridWith(), frameConfig.getContentGridHeight());
     }
 
     private void setupMainPanel(String title, FrameConfig<Account> frameConfig) {
@@ -104,7 +104,7 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
 
     private void tableRow(Account account){
         model.addRow(frameConfig.buildRow(account));
-        table.getSelectionModel().setAnchorSelectionIndex(-1);
+        AccountTable.getSelectionModel().setAnchorSelectionIndex(-1);
     }
 
     void exitApplication()
@@ -118,7 +118,7 @@ public abstract class FrameTemplate extends JFrame implements UICommandControlle
     }
 
     public int getSelectionIndex() {
-        return table.getSelectionModel().getMinSelectionIndex();
+        return AccountTable.getSelectionModel().getMinSelectionIndex();
     }
 
     public ActionListener getExitEventHandler() {
