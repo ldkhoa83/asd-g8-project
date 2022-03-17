@@ -2,7 +2,7 @@ package org.miu.asd.framework.ui.dialog;
 
 import org.miu.asd.framework.domain.Customer;
 import org.miu.asd.framework.ui.FrameTemplate;
-import org.miu.asd.framework.ui.bean.UIBean;
+import org.miu.asd.framework.ui.bean.BaseUIBean;
 import org.miu.asd.framework.ui.command.UICommand;
 import org.miu.asd.framework.ui.bean.UICommandBean;
 
@@ -51,7 +51,7 @@ public class DepositDialog extends JDialog
 		JTextField_NAME.setText(accountNumber);
 
 		JButton_OK.addActionListener(e -> {
-			UIBean bean = new UIBean();
+			BaseUIBean bean = new BaseUIBean();
 			bean.setAmount(Double.valueOf(JTextField_Deposit.getText()));
 			bean.setAccountNumber(accountNumber);
 			Customer customer = new Customer(customerName,"","","","");
