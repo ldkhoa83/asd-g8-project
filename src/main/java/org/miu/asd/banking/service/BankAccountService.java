@@ -19,13 +19,6 @@ public class BankAccountService extends BaseAccountService implements Observable
         this.registerObserver(new EmailSender());
     }
 
-//        public void addInterestForAllAccounts() {
-//        getAccountDAO().loadAllAccounts().forEach( a -> {
-//            AccountEntry accountEntry = a.addInterest();
-//             accountDAO.updateAccount(account);
-//             notifyObservers();
-//        });
-//    }
     @Override
     protected void performNotify(AccountEntry accountEntry, Account account) {
         notifyObservers(accountEntry, account);
@@ -63,6 +56,10 @@ public class BankAccountService extends BaseAccountService implements Observable
 
     @Override
     public void addInterestForAllAccounts() {
+        getAccountDAO().loadAllAccounts().forEach( account -> {
+            AccountEntry accountEntry = account.addInterest();
+             notifyObservers(accountEntry,account);
+        });
 
     }
 }
