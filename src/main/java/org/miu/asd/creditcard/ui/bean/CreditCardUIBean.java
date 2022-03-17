@@ -4,13 +4,13 @@ import org.joda.time.LocalDate;
 import org.miu.asd.creditcard.domain.CreditCardType;
 import org.miu.asd.framework.domain.Account;
 import org.miu.asd.framework.domain.Customer;
-import org.miu.asd.framework.ui.bean.UIBean;
+import org.miu.asd.framework.ui.bean.BaseUIBean;
 import org.miu.asd.framework.ui.bean.UICommandBean;
 
 import java.util.Collection;
 
 public class CreditCardUIBean implements UICommandBean {
-    private UIBean uiBean = new UIBean();
+    private BaseUIBean uiBean = new BaseUIBean();
     private String monthlyBillReport;
     private LocalDate expiredDate;
     private CreditCardType creditCardType;
@@ -44,11 +44,11 @@ public class CreditCardUIBean implements UICommandBean {
         this.creditCardType = creditCardType;
     }
 
-    public UIBean getUiBean() {
+    public BaseUIBean getUiBean() {
         return uiBean;
     }
 
-    public void setUiBean(UIBean uiBean) {
+    public void setUiBean(BaseUIBean uiBean) {
         this.uiBean = uiBean;
     }
 

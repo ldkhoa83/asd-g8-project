@@ -3,7 +3,7 @@ package org.miu.asd.banking.ui.dialog;
 import org.miu.asd.framework.domain.Company;
 import org.miu.asd.banking.ui.AccountType;
 import org.miu.asd.framework.ui.FrameTemplate;
-import org.miu.asd.framework.ui.bean.UIBean;
+import org.miu.asd.framework.ui.bean.BaseUIBean;
 import org.miu.asd.framework.ui.command.UICommand;
 
 import javax.swing.*;
@@ -95,7 +95,7 @@ public class AddCompanyAccountDialog extends JDialog
 		JTextField_ACNR.setBounds(120,72,156,20);
 
 		JButton_OK.addActionListener(e -> {
-			UIBean bean = new UIBean();
+			BaseUIBean bean = new BaseUIBean();
 
 			String accNum = JTextField_ACNR.getText();
 			String name =JTextField_NAME.getText();

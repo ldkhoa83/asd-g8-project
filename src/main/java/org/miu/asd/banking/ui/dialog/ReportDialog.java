@@ -4,16 +4,16 @@ package org.miu.asd.banking.ui.dialog;
 */
 
 import org.miu.asd.framework.ui.FrameTemplate;
-import org.miu.asd.framework.ui.bean.UIBean;
+import org.miu.asd.framework.ui.bean.BaseUIBean;
 import org.miu.asd.framework.ui.command.UICommand;
 
 import javax.swing.*;
 
 public class ReportDialog extends JDialog
 {
-	private UICommand<UIBean> reportUICommand;
+	private UICommand<BaseUIBean> reportUICommand;
 
-	public ReportDialog(FrameTemplate parent, UICommand<UIBean> uiCommand)
+	public ReportDialog(FrameTemplate parent, UICommand<BaseUIBean> uiCommand)
 	{
 		super(parent);
 		reportUICommand = uiCommand;
@@ -35,7 +35,7 @@ public class ReportDialog extends JDialog
 		JButton_OK.setBounds(156,276,96,24);
 
 
-		UIBean uiBean = new UIBean();
+		BaseUIBean uiBean = new BaseUIBean();
 		reportUICommand.execute(uiBean);
 		JTextField1.setText(uiBean.getAllAccountsReport());
 

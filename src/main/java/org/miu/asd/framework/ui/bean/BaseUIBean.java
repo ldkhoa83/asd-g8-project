@@ -6,7 +6,7 @@ import org.miu.asd.framework.domain.Customer;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class UIBean implements UICommandBean{
+public class BaseUIBean implements UICommandBean{
     private String accountType;
     private String accountNumber;
     private Customer customer;
@@ -14,7 +14,7 @@ public class UIBean implements UICommandBean{
     private Collection<Account> accounts;
     private String allAccountsReport;
 
-    public UIBean() {
+    public BaseUIBean() {
         this.accountType = "";
         this.accountNumber = "";
         this.amount = 0.0;
