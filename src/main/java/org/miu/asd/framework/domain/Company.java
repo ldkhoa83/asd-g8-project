@@ -1,7 +1,5 @@
 package org.miu.asd.framework.domain;
 
-import org.miu.asd.framework.domain.Customer;
-
 public class Company extends Customer {
     private Integer numOfEmployees;
 

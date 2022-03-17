@@ -9,21 +9,21 @@ import org.miu.asd.framework.domain.Customer;
 import java.util.Collection;
 
 public interface AccountService {
-    Account createAccount(String accountID, Customer customer, AccountFactory accountFactory);
+    Account createAccount(String accountNumber, Customer customer, AccountFactory accountFactory);
 
-    Account getAccount(String accountID);
+    Account getAccount(String accountNumber);
 
-    void deposit(String accountID, Double amountOfMoney, AccountEvent accountEvent);
+    void deposit(String accountNumber, Double amountOfMoney, AccountEvent accountEvent);
 
-    void withdraw(String accountID, Double amountOfMoney, AccountEvent accountEvent);
+    void withdraw(String accountNumber, Double amountOfMoney, AccountEvent accountEvent);
 
     Collection<Account> getAllAccounts();
 
-    default void charge(String accountID, Double amountOfMoney, AccountEvent accountEvent){
-        withdraw(accountID,amountOfMoney,accountEvent);
+    default void charge(String accountNumber, Double amountOfMoney, AccountEvent accountEvent){
+        withdraw(accountNumber,amountOfMoney,accountEvent);
     }
 
-    String generateMonthlyBillReport(String AccountID);
+    String generateMonthlyBillReport(String accountNumber);
 
     String generateAllAccountReports();
 

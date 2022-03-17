@@ -6,7 +6,7 @@ import org.miu.asd.framework.domain.AccountFactory;
 
 public class CheckingAccountFactory implements AccountFactory {
     @Override
-    public Account initAccount(String accountID, Customer customer) {
-        return new CheckingAccount(accountID,customer);
+    public Account initAccount(String accountNumber, Customer customer) {
+        return new CheckingAccount(accountNumber,customer);
     }
 }

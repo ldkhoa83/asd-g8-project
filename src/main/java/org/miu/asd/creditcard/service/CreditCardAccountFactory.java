@@ -21,13 +21,13 @@ public class CreditCardAccountFactory implements AccountFactory {
     }
 
     @Override
-    public Account initAccount(String accountID, Customer customer) {
+    public Account initAccount(String accountNumber, Customer customer) {
         CreditPaymentCalculator strategy;
         if(creditCardType.equals(CreditCardType.BRONZE))
             strategy = new BronzeCreditCard();
         else if(creditCardType.equals(CreditCardType.GOLD))
             strategy=new GoldCreditCard();
         else strategy=new SilverCreditCard();
-        return new CreditCardAccount(accountID,customer,expiredDate,creditCardType,strategy);
+        return new CreditCardAccount(accountNumber,customer,expiredDate,creditCardType,strategy);
     }
 }

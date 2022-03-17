@@ -16,16 +16,8 @@ public abstract class Account {
     private InterestComputationStrategy interestStrategy;
 
     public Account(String accountNumber, Customer customer) {
-
-        //public Account(String accountNumber, Customer customer, AccountType accountType) {
-
         this.accountNumber = accountNumber;
         this.customer = customer;
-        //if(accountType.equals(AccountType.CHECKING)) {
-          //  this.interestStrategy = new CheckingInterest();
-        //} else if(accountType.equals(AccountType.SAVING)) {
-          //  this.interestStrategy = new SavingInterest();
-        //}
     }
 
     public void setInterestStrategy(InterestComputationStrategy interestStrategy){

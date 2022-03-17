@@ -13,16 +13,14 @@ import java.util.Collection;
 public abstract class BaseAccountService implements Observable, AccountService {
 
     private AccountDAO accountDAO;
-    protected AccountEventType accountEventType;
-
 
     public BaseAccountService(AccountDAO accountDao) {
         this.accountDAO = accountDao;
     }
 
     @Override
-    public Account createAccount(String accountID, Customer customer, AccountFactory accountFactory) {
-        Account account = accountFactory.initAccount(accountID, customer);
+    public Account createAccount(String accountNumber, Customer customer, AccountFactory accountFactory) {
+        Account account = accountFactory.initAccount(accountNumber, customer);
         getAccountDAO().saveAccount(account);
         return account;
     }
@@ -33,13 +31,13 @@ public abstract class BaseAccountService implements Observable, AccountService {
     }
 
     @Override
-    public Account getAccount(String accountID) {
-        return accountDAO.loadAccount(accountID);
+    public Account getAccount(String accountNumber) {
+        return accountDAO.loadAccount(accountNumber);
     }
 
     @Override
-    public void deposit(String accountID, Double amountOfMoney, AccountEvent accountEvent) {
-        Account account = accountDAO.loadAccount(accountID);
+    public void deposit(String accountNumber, Double amountOfMoney, AccountEvent accountEvent) {
+        Account account = accountDAO.loadAccount(accountNumber);
         AccountEntry accountEntry = performDepositOnAccount(account, amountOfMoney, accountEvent);
         accountDAO.updateAccount(account);
         notifyObservers(accountEntry,account);
@@ -47,8 +45,8 @@ public abstract class BaseAccountService implements Observable, AccountService {
     }
 
     @Override
-    public void withdraw(String accountID, Double amountOfMoney, AccountEvent accountEvent) {
-        Account account = accountDAO.loadAccount(accountID);
+    public void withdraw(String accountNumber, Double amountOfMoney, AccountEvent accountEvent) {
+        Account account = accountDAO.loadAccount(accountNumber);
         AccountEntry accountEntry = performWithdrawOnAccount(account, amountOfMoney, accountEvent);
         accountDAO.updateAccount(account);
         notifyObservers(accountEntry,account);
@@ -60,8 +58,8 @@ public abstract class BaseAccountService implements Observable, AccountService {
     }
 
     @Override
-    public String generateMonthlyBillReport(String accountID) {
-        Account account = accountDAO.loadAccount(accountID);
+    public String generateMonthlyBillReport(String accountNumber) {
+        Account account = accountDAO.loadAccount(accountNumber);
         Interval lastMonth = new Interval(Period.months(1), Instant.now());
 
         return account.generateReport(lastMonth);
@@ -73,11 +71,6 @@ public abstract class BaseAccountService implements Observable, AccountService {
                 sb.append(account.generateReport(new Interval(Period.years(1), Instant.now()))).append("\n"));
         return sb.toString();
     }
-
-    public AccountEventType getAccountEventType() {
-        return accountEventType;
-    }
-
 
     protected abstract  void  performNotify(AccountEntry accountEntry, Account account);
 
