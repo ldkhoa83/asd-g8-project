@@ -1,7 +1,7 @@
 package org.miu.asd.banking.ui;
 
 import org.miu.asd.banking.domain.CheckingAccount;
-import org.miu.asd.banking.domain.Company;
+import org.miu.asd.framework.domain.Company;
 import org.miu.asd.framework.domain.Account;
 import org.miu.asd.framework.ui.FrameConfig;
 

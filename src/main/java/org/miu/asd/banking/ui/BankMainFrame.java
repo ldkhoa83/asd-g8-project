@@ -1,6 +1,13 @@
 package org.miu.asd.banking.ui;
 
+import org.miu.asd.banking.ui.dialog.AddCompanyAccountDialog;
+import org.miu.asd.banking.ui.dialog.AddPersonalAccountDialog;
+import org.miu.asd.banking.ui.dialog.ReportDialog;
 import org.miu.asd.framework.ui.*;
+import org.miu.asd.framework.ui.bean.UIBean;
+import org.miu.asd.framework.ui.command.UICommand;
+import org.miu.asd.framework.ui.dialog.DepositDialog;
+import org.miu.asd.framework.ui.dialog.WithdrawDialog;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

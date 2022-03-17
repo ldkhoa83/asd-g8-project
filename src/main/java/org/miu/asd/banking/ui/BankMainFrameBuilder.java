@@ -1,9 +1,17 @@
 package org.miu.asd.banking.ui;
 
 import org.miu.asd.banking.service.BankAccountService;
+import org.miu.asd.banking.ui.command.AddAccountUICommand;
+import org.miu.asd.banking.ui.command.AddInterestUICommand;
+import org.miu.asd.banking.ui.command.ReportCreationUICommand;
 import org.miu.asd.framework.dao.MemoryAccountDAO;
 import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.*;
+import org.miu.asd.framework.ui.bean.UIBean;
+import org.miu.asd.framework.ui.command.DepositUICommand;
+import org.miu.asd.framework.ui.command.FrameUpdateUICommand;
+import org.miu.asd.framework.ui.command.UICommand;
+import org.miu.asd.framework.ui.command.WithdrawUICommand;
 
 public class BankMainFrameBuilder {
     private static final BankMainFrameBuilder INSTANCE = new BankMainFrameBuilder();

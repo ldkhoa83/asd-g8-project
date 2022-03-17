@@ -1,8 +1,10 @@
 package org.miu.asd.creditcard.service;
 
-import org.miu.asd.creditcard.domain.EmailSender;
+import org.miu.asd.creditcard.email.EmailSender;
 import org.miu.asd.framework.dao.AccountDAO;
 import org.miu.asd.framework.domain.*;
+import org.miu.asd.framework.observer.Observable;
+import org.miu.asd.framework.observer.Observer;
 import org.miu.asd.framework.service.BaseAccountService;
 
 import java.util.ArrayList;

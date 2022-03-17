@@ -1,9 +1,17 @@
 package org.miu.asd.creditcard.ui;
 
 import org.miu.asd.creditcard.service.CreditCardAccountService;
+import org.miu.asd.creditcard.ui.bean.CreditCardUIBean;
+import org.miu.asd.creditcard.ui.command.AddCreditCardAccountUICommand;
+import org.miu.asd.creditcard.ui.command.BillCreationUICommand;
+import org.miu.asd.creditcard.ui.command.ChargeUICommand;
 import org.miu.asd.framework.dao.MemoryAccountDAO;
 import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.*;
+import org.miu.asd.framework.ui.bean.UIBean;
+import org.miu.asd.framework.ui.command.DepositUICommand;
+import org.miu.asd.framework.ui.command.FrameUpdateUICommand;
+import org.miu.asd.framework.ui.command.UICommand;
 
 public class CreditCardMainFrameBuilder {
     private static final CreditCardMainFrameBuilder INSTANCE = new CreditCardMainFrameBuilder();

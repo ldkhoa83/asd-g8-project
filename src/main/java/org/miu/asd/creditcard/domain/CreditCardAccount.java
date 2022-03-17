@@ -2,9 +2,7 @@ package org.miu.asd.creditcard.domain;
 
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
-import org.miu.asd.banking.ui.AccountType;
-import org.miu.asd.creditcard.domain.interestandpaymentcalculator.BronzeCreditCard;
-import org.miu.asd.creditcard.domain.interestandpaymentcalculator.CreditPaymentCalculator;
+import org.miu.asd.creditcard.domain.calculator.strategy.CreditPaymentCalculator;
 import org.miu.asd.framework.domain.*;
 
 

@@ -5,6 +5,7 @@ import org.joda.time.Interval;
 import org.joda.time.Period;
 import org.miu.asd.framework.dao.AccountDAO;
 import org.miu.asd.framework.domain.*;
+import org.miu.asd.framework.observer.Observable;
 
 import java.io.StringWriter;
 import java.util.Collection;

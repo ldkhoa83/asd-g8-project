@@ -4,7 +4,7 @@ import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
-import org.miu.asd.banking.domain.interestCalculator.InterestComputationStrategy;
+import org.miu.asd.banking.domain.calculator.strategy.InterestComputationStrategy;
 
 import java.util.Collection;
 import java.util.HashSet;
