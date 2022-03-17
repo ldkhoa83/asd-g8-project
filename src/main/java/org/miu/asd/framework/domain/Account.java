@@ -80,7 +80,7 @@ public abstract class Account {
 
     public AccountEntry addInterest(){
         LocalDateTime time = LocalDateTime.now();
-        AccountEvent accountEvent = new BaseAccountEvent(time, getCustomer().getName(), AccountEventType.INTEREST);
+        AccountEvent accountEvent = new AccountEvent(time, getCustomer().getName(), AccountEventType.INTEREST);
         AccountEntry accountEntry = new AccountEntry(interestStrategy.computeInterest(balance()), accountEvent, LocalDateTime.now());
         getAccountEntries().add(accountEntry);
         return accountEntry;

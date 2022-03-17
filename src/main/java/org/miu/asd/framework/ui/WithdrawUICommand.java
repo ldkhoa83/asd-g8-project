@@ -2,7 +2,6 @@ package org.miu.asd.framework.ui;
 
 import org.joda.time.LocalDateTime;
 import org.miu.asd.framework.domain.AccountEvent;
-import org.miu.asd.framework.domain.BaseAccountEvent;
 import org.miu.asd.framework.domain.AccountEventType;
 import org.miu.asd.framework.service.AccountService;
 
@@ -13,7 +12,7 @@ public class WithdrawUICommand extends UICommand<UIBean>{
 
     @Override
     public void execute(UIBean bean) {
-        AccountEvent accountEvent = new BaseAccountEvent(LocalDateTime.now(),bean.getCustomer().getName(), AccountEventType.WITHDRAW);
+        AccountEvent accountEvent = new AccountEvent(LocalDateTime.now(),bean.getCustomer().getName(), AccountEventType.WITHDRAW);
         getAccountService().withdraw(bean.getAccountNumber(),bean.getAmount(),accountEvent);
     }
 }

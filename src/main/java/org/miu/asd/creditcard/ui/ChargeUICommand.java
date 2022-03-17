@@ -1,9 +1,8 @@
 package org.miu.asd.creditcard.ui;
 
 import org.joda.time.LocalDateTime;
-import org.miu.asd.framework.domain.AccountEvent;
 import org.miu.asd.framework.domain.AccountEventType;
-import org.miu.asd.framework.domain.BaseAccountEvent;
+import org.miu.asd.framework.domain.AccountEvent;
 import org.miu.asd.framework.service.AccountService;
 import org.miu.asd.framework.ui.UICommand;
 
@@ -14,7 +13,7 @@ public class ChargeUICommand extends UICommand<CreditCardUIBean> {
 
     @Override
     public void execute(CreditCardUIBean bean) {
-        AccountEvent accountEvent = new BaseAccountEvent(LocalDateTime.now(),"Unknown", AccountEventType.CHARGED);
+        AccountEvent accountEvent = new AccountEvent(LocalDateTime.now(),"Unknown", AccountEventType.CHARGED);
         getAccountService().charge(bean.getAccountNumber(),bean.getAmount(),accountEvent);
     }
 }
